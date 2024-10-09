@@ -1,0 +1,21 @@
+:root{
+    --background-header: #0066b3;
+    --background-navbar: rgba(1, 60, 136, 0.5);
+}
+
+body{
+    padding: 0;
+    margin:0;
+}
+/* Your custom CSS */
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+.img-info{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: black;
+}

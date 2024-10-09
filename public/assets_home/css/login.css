@@ -1,0 +1,23 @@
+body{
+    font-family: 'Poppins', 'sans-serif';
+    background-color: rgb(207, 196, 193);
+}
+.box-area{
+    width: 930px;
+}
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+::placeholder{
+    font-size: 16px;
+}
+@media only screen and (max-width: 768px){
+    .box-area{
+        margin: 0 10px;
+    }
+    .left-box{
+        height: 100px;
+        overflow: hidden;
+    }
+
+}
