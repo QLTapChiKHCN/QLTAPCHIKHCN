@@ -1,0 +1,1 @@
+băm mật khẩu của thằng lê văn C ra: php -r "echo password_hash('pass3', PASSWORD_BCRYPT).PHP_EOL;"  rồi gắn nó vào db 
