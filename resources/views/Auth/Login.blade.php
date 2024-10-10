@@ -171,6 +171,8 @@
 </style>
 
 <div class="login-container">
+
+
     <div class="container">
         <div class="row login-card">
             <!-- Left side - Image -->
@@ -186,23 +188,43 @@
 
             </div>
 
-            <!-- Right side - Login form -->
+
             <div class="col-md-6 p-5">
                 <div class="login-header">
                     <h1>Đăng Nhập</h1>
                     <p>Chào mừng bạn trở lại!</p>
                 </div>
+                <div class="card-body">
 
-                <form>
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
-                        <label for="emailInput">Email</label>
+                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="emailInput" value="{{ old('username') }}">
+                        <label for="emailInput">Tên Đăng Nhập</label>
+                        @error('username')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
+
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput" placeholder="Mật khẩu">
                         <label for="passwordInput">Mật khẩu</label>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
+
+                    @error('roles')
+                        <div class="alert alert-danger mb-3">{{ $message }}</div>
+                    @enderror
+
 
                     <div class="d-flex justify-content-between mb-4">
                         <div class="form-check">
@@ -212,18 +234,11 @@
                         <a href="#" class="text-decoration-none">Quên mật khẩu?</a>
                     </div>
 
+
                     <button type="submit" class="btn btn-primary w-100 btn-login mb-3">
                         Đăng nhập
                     </button>
 
-                    <div class="divider">
-                        <span>hoặc</span>
-                    </div>
-
-                    <button type="button" class="btn w-100 social-login mb-3">
-                        <img src="{{ asset('assets_home/image/google.png') }}" alt="Google" style="width: 20px; margin-right: 10px;">
-                        Đăng nhập với Google
-                    </button>
 
                     <div class="text-center">
                         <p class="mb-0">Chưa có tài khoản?
@@ -231,6 +246,7 @@
                         </p>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

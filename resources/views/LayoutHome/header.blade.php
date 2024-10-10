@@ -71,13 +71,28 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill"></i>Tài khoản
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill"></i>
+                        @if (Auth::check())
+                            {{ Auth::user()->HoTen }}
+                        @else
+                            Tài khoản
+                        @endif
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        @if (Auth::check())
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
+
+                        @php
+                            $laPhanBien = Auth::user()->vaiTros()->where('NguoiDung_VaiTro.MaVaiTro', 'VT04')->exists();
+                        @endphp
+
+                        @if ($laPhanBien)
+                            <li><a class="dropdown-item" href="{{ route('PhanBien') }}">Phản biện bài viết</a></li>
+                        @endif
+                    @else
                         <li><a class="dropdown-item" href="{{ route('Login') }}">Đăng nhập</a></li>
-                        <li><a class="dropdown-item" href="#!/logout">Đăng xuất</a></li>
+                    @endif
                     </ul>
                 </li>
             </ul>
