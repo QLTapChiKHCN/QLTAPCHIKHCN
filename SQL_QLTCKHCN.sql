@@ -84,9 +84,13 @@ CREATE TABLE BaiViet (
     MaChuyenMuc varchar(10) FOREIGN KEY REFERENCES ChuyenMuc(MaChuyenMuc),
     TieuDe nvarchar(200),
     TenBaiBao varchar(100),
+	TenBaiBaoTiengAnh varchar(100),
+	TomTat varchar(Max),
+	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
     TuKhoa nvarchar(200),
+	TuKhoaTiengAnh nvarchar(200),
     FileBaiViet VARBINARY(MAX), -- Sử dụng VARBINARY(MAX) để lưu trữ file
     TrangThai nvarchar(50)
 );
