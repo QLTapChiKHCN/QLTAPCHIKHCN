@@ -49,11 +49,29 @@ CREATE TABLE LoaiTacGia (
     TenLoai nvarchar(50)
 );
 GO
+CREATE TABLE ChuyenNganh(
+   MaChuyenNganh varchar(10) Primary key,
+   TenChuyenNganh varchar(50)
+);
+Go
+CREATE TABLE DonVi(
+	MaDonVi varchar(10) primary key,
+	TenDonVi varchar(50)
+	);
+Go
+CREATE TABLE QuocGia(
+	MaQG varchar(10) primary key,
+	TenQG varchar(50)
+	);
+go
 -- Tạo bảng NguoiDung
 CREATE TABLE NguoiDung (
     MaNguoiDung varchar(10) PRIMARY KEY,
     MaHocVi varchar(10) FOREIGN KEY REFERENCES HocVi(MaHocVi),
     MaHocHam varchar(10) FOREIGN KEY REFERENCES HocHam(MaHocHam),
+    MaDonVi varchar(10) FOREIGN KEY REFERENCES DonVi(MaDonVi),
+    MaChuyenNganh varchar(10) FOREIGN KEY REFERENCES ChuyenNganh(MaChuyenNganh),
+    MaQG varchar(10) FOREIGN KEY REFERENCES QuocGia(MaQG),
     TenDangNhap varchar(50) NOT NULL,
     MatKhau varchar(100),
     HoTen nvarchar(100),
@@ -153,13 +171,31 @@ INSERT INTO VaiTro (MaVaiTro, TenVaiTro) VALUES
 ('VT02', N'Tổng biên tập'),
 ('VT03', N'Tác giả'),
 ('VT04', N'Phản biện')
+INSERT INTO ChuyenNganh (MaChuyenNganh, TenChuyenNganh) VALUES
+('CN01', N'Công nghệ thông tin'),
+('CN02', N'Y học'),
+('CN03', N'Giáo dục'),
+('CN04', N'Khoa học xã hội'),
+('CN05', N'Văn hóa nghệ thuật');
 
-INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, ChuyenNganh, DonVi, QuocGia, GioiTinh) VALUES
-('ND01', 'HV01', 'HH03', 'user1', 'pass1', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Công nghệ thông tin', N'Trường Đại học', N'Việt Nam', N'Nam'),
-('ND02', 'HV02', 'HH01', 'user2', 'pass2', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Y học', N'Bệnh viện', N'Việt Nam', N'Nữ'),
-('ND03', 'HV03', 'HH02', 'user3', 'pass3', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Giáo dục', N'Trường Đại học', N'Việt Nam', N'Nam'),
-('ND04', 'HV04', 'HH03', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Khoa học xã hội', N'Trường Cao đẳng', N'Việt Nam', N'Nữ'),
-('ND05', 'HV01', 'HH02', 'user5', 'pass5', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Can Tho', N'Văn hóa nghệ thuật', N'Trường Đại học', N'Việt Nam', N'Nam');
+-- Dữ liệu cho bảng DonVi
+INSERT INTO DonVi (MaDonVi, TenDonVi) VALUES
+('DV01', N'Trường Đại học'),
+('DV02', N'Bệnh viện'),
+('DV03', N'Trường Cao đẳng');
+
+-- Dữ liệu cho bảng QuocGia
+INSERT INTO QuocGia (MaQG, TenQG) VALUES
+('VN', N'Việt Nam'),
+('US', N'Hoa Kỳ');
+
+INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, MaDonVi, MaChuyenNganh, MaQG, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, GioiTinh) VALUES
+('ND01', 'HV01', 'HH03', 'DV01', 'CN01', 'VN', 'user1', 'pass1', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
+('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'pass2', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
+('ND03', 'HV03', 'HH02', 'DV01', 'CN03', 'VN', 'user3', 'pass3', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Nam'),
+('ND04', 'HV04', 'HH03', 'DV03', 'CN04', 'VN', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
+('ND05', 'HV01', 'HH02', 'DV01', 'CN05', 'VN', 'user5', 'pass5', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Cần Thơ', N'Nam');
+
 
 INSERT INTO NguoiDung_VaiTro (MaNguoiDung, MaVaiTro) VALUES
 ('ND01', 'VT01'),  -- Nguyễn Văn A là Biên tập viên
