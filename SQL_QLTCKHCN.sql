@@ -109,7 +109,7 @@ CREATE TABLE BaiViet (
     NgayGui date,
     TuKhoa nvarchar(200),
 	TuKhoaTiengAnh nvarchar(200),
-    FileBaiViet VARBINARY(MAX), -- Sử dụng VARBINARY(MAX) để lưu trữ file
+    FileBaiViet varchar(255),
     TrangThai nvarchar(50)
 );
 -- Tạo bảng ChiTietBaiViet
@@ -130,7 +130,7 @@ CREATE TABLE ChiTietPhanBien (
     KetQuaPhanBien nvarchar(50),
     YKienPhanBien ntext,
     NgayPhanBien date,
-    FilePhanBien VARBINARY(MAX), -- Lưu trữ file phản biện dưới dạng dữ liệu nhị phân
+    FilePhanBien varchar(255), -- Lưu trữ file phản biện dưới dạng dữ liệu nhị phân
     PRIMARY KEY (MaBaiBao, MaNguoiDung),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
