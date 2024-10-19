@@ -72,7 +72,7 @@ CREATE TABLE NguoiDung (
     MaDonVi varchar(10) FOREIGN KEY REFERENCES DonVi(MaDonVi),
     MaChuyenNganh varchar(10) FOREIGN KEY REFERENCES ChuyenNganh(MaChuyenNganh),
     MaQG varchar(10) FOREIGN KEY REFERENCES QuocGia(MaQG),
-    TenDangNhap varchar(50) NOT NULL,
+    TenDangNhap varchar(50),
     MatKhau varchar(100),
     HoTen nvarchar(100),
     Email varchar(100),
