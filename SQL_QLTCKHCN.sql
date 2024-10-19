@@ -101,7 +101,7 @@ CREATE TABLE BaiViet (
     MaSoTC varchar(10) FOREIGN KEY REFERENCES SoTapChi(MaSoTC),
     MaChuyenMuc varchar(10) FOREIGN KEY REFERENCES ChuyenMuc(MaChuyenMuc),
     TieuDe nvarchar(200),
-    TenBaiBao varchar(100),
+    TenBaiBao nvarchar(100),
 	TenBaiBaoTiengAnh varchar(100),
 	TomTat nvarchar(Max),
 	TomTatTiengAnh varchar(Max),
