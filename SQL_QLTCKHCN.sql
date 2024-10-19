@@ -103,7 +103,7 @@ CREATE TABLE BaiViet (
     TieuDe nvarchar(200),
     TenBaiBao varchar(100),
 	TenBaiBaoTiengAnh varchar(100),
-	TomTat varchar(Max),
+	TomTat nvarchar(Max),
 	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
