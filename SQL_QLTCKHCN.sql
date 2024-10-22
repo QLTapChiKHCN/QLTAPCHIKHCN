@@ -162,9 +162,7 @@ INSERT INTO HocVi (MaHocVi, TenHocVi) VALUES
 ('HV04', N'Tiến sĩ')
 INSERT INTO HocHam (MaHocHam, TenHocHam) VALUES
 ('HH01', N'Giáo sư'),
-('HH02', N'Phó giáo sư'),
-('HH03', N'Tiến sĩ'),
-('HH04', N'Thạc sĩ');
+('HH02', N'Phó giáo sư');
 
 INSERT INTO VaiTro (MaVaiTro, TenVaiTro) VALUES
 ('VT01', N'Biên tập viên'),
