@@ -9,14 +9,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" />
     <link rel="stylesheet" href="{{ asset('assets_home/css/index.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets_home/bootstrap-icons-1.11.2/font/bootstrap-icons.css') }}" />
-
     <script src="{{ asset('assets_home/bootstrap-5.3.2-dist/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets_home/js/angular.min.js') }}"></script>
     <script src="https://code.angularjs.org/1.8.2/angular-route.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/d65420k7p618ngilkrjmefv3dayjqvwk61qiigco4l3mth6f/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.0/js/froala_editor.pkgd.min.js"></script>
-
     <style>
         :root {
             --primary-color: #1a73e8;
@@ -141,7 +139,7 @@
     @stack('css')
 </head>
 <body>
-    @include('LayoutHome.header')
+    @include('LayoutHome.PBheader')
     @yield('content')
     <!-- Footer -->
     <footer>

@@ -12,6 +12,7 @@ class BaiViet extends Model
     protected $primaryKey = 'MaBaiBao';
     public $timestamps = false;
 
+
     public function chiTietBaiViets()
     {
         return $this->hasMany(ChiTietBaiViet::class, 'MaBaiBao', 'MaBaiBao');

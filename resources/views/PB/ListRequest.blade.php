@@ -1,5 +1,4 @@
 @extends('LayoutHome.PBmaster')
 @section('content')
-
-<p>Đưa giao diện phản biện vào đây</p>
+    <h1>Request</h1>
 @endsection
