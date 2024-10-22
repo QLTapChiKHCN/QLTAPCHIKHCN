@@ -138,14 +138,129 @@
         opacity: 0.8;
     }
 
-    /* Thêm border nhẹ để phân chia các cột trên mobile */
     @media (max-width: 768px) {
         footer .col-md-4:not(:last-child) {
             border-bottom: 1px solid rgba(255,255,255,0.1);
             padding-bottom: 20px;
             margin-bottom: 20px;
         }}
+        footer {
+    background-color: #1a73e8;
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #4285f4, #34a853, #fbbc05, #ea4335);
+}
+
+footer .container {
+    position: relative;
+    z-index: 1;
+}
+
+footer h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+footer h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #fbbc05;
+}
+
+footer p, footer span {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+footer .logo-container {
+    background-color: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+footer .logo-container img {
+    max-width: 120px;
+    height: auto;
+}
+
+footer .social-links {
+    margin-top: 20px;
+}
+
+footer .social-links a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+footer .social-links a:hover {
+    background-color: #fff;
+    color: #1a73e8;
+    transform: translateY(-3px);
+}
+
+footer .contact-info i {
+    margin-right: 10px;
+    color: #fbbc05;
+}
+
+footer .bottom-bar {
+    background-color: rgba(0,0,0,0.1);
+    padding: 15px 0;
+    margin-top: 40px;
+    text-align: center;
+}
+
+footer .bottom-bar p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    footer h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    footer .social-links {
+        margin-bottom: 30px;
+    }
+}
         </style>
+
     @stack('css')
   </head>
   <body>
@@ -156,36 +271,43 @@
 
 
 
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="{{ asset('assets_home/image/logo.png') }}"
-                             class="img-fluid mb-3" style="max-width: 150px" alt="Footer Logo">
-                        <div>
-                            <span class="d-block mb-2"><strong>TẠP CHÍ CÔNG NGHỆ HUIT</strong></span>
-                            <span class="d-block">Tại: Trường Đại Học Công Thương</span>
-                            <span class="d-block">140 Đ. Lê Trọng Tấn, Tây Thạnh, Tân Phú, TP.HCM</span>
-                        </div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="logo-container">
+                        <img src="{{ asset('assets_home/image/logo.png') }}" alt="Footer Logo" class="img-fluid">
                     </div>
-                    <div class="col-md-4">
-                        <span class="d-block mb-2"><strong>Thông tin liên hệ</strong></span>
-                        <span class="d-block">Thành viên: Duc Dau Buoi Nhu Cak</span>
-                        <span class="d-block">Điện thoại: 0987654321</span>
-                        <span class="d-block">Email: ducdb@gmail.com</span>
+                    <h4>TẠP CHÍ CÔNG NGHỆ HUIT</h4>
+                    <p>Trường Đại Học Công Thương</p>
+                    <p>140 Đ. Lê Trọng Tấn, Tây Thạnh, Tân Phú, TP.HCM</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4>Thông tin liên hệ</h4>
+                    <div class="contact-info">
+                        <p><i class="bi bi-person-fill"></i> Thành viên</p>
+                        <p><i class="bi bi-telephone-fill"></i> 0987654321</p>
+                        <p><i class="bi bi-envelope-fill"></i> ducdb@gmail.com</p>
                     </div>
-                    <div class="col-md-4">
-                        <span class="d-block mb-2"><strong>Theo dõi chúng tôi</strong></span>
-                        <div class="social-links">
-                            <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
-                        </div>
+                </div>
+                <div class="col-md-4">
+                    <h4>Theo dõi chúng tôi</h4>
+                    <p>Cập nhật thông tin mới nhất về công nghệ và khoa học</p>
+                    <div class="social-links">
+                        <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+        <div class="bottom-bar">
+            <div class="container">
+                <p>&copy; 2024 TẠP CHÍ CÔNG NGHỆ HUIT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
         <script src="{{ asset('assets_home/js/index.js') }}"></script>
     </body>

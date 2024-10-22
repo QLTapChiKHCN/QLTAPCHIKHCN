@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APIGETBAIVIETCotroller;
+
+Route::get('/get-files', [APIGETBAIVIETCotroller::class, 'getFiles']); // Lấy danh sách file
+Route::get('/download-file/{id}', [APIGETBAIVIETCotroller::class, 'downloadFile']); // Tải file
 
 /*
 |--------------------------------------------------------------------------

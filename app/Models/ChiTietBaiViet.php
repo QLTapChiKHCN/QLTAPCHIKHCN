@@ -7,25 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChiTietBaiViet extends Model
 {
-    use HasFactory;
     protected $table = 'ChiTietBaiViet';
-    public $timestamps = false;
-
     protected $primaryKey = ['MaBaiBao', 'MaNguoiDung', 'MaLTacGia'];
     public $incrementing = false;
+    protected $keyType = 'string';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'MaBaiBao',
+        'MaNguoiDung',
+        'MaLTacGia',
+    ];
 
     public function baiViet()
     {
-        return $this->belongsTo(BaiViet::class, 'MaBaiBao', 'MaBaiBao');
+        return $this->belongsTo(BaiViet::class, 'MaBaiBao');
     }
 
     public function nguoiDung()
     {
-        return $this->belongsTo(NguoiDung::class, 'MaNguoiDung', 'MaNguoiDung');
+        return $this->belongsTo(NguoiDung::class, 'MaNguoiDung');
     }
 
     public function loaiTacGia()
     {
-        return $this->belongsTo(LoaiTacGia::class, 'MaLTacGia', 'MaLTacGia');
+        return $this->belongsTo(LoaiTacGia::class, 'MaLTacGia');
     }
 }

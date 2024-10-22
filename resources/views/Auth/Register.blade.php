@@ -314,7 +314,7 @@
             <button type="submit" class="btn btn-danger mt-2 mb-3 border-danger w-50"> <span class="text-info">Đăng ký <i class="bi bi-box-arrow-right text-info"></i></span></button>
            </div>
            <div class="btn-signin text-center">
-            <button type="submit" class="btn btn-danger mt-2 mb-3 border-danger w-100"><span class="text-warning"><i class="bi bi-box-arrow-left text-warning"></i> <a href="#!/login" class="text-decoration-none text-warning">Đăng nhập</a></button></span>
+            <button type="submit" class="btn btn-danger mt-2 mb-3 border-danger w-100"><span class="text-warning"><i class="bi bi-box-arrow-left text-warning"></i> <a href="{{ route('Login') }}" class="text-decoration-none text-warning">Đăng nhập</a></button></span>
            </div>
           </div>
         </form>

@@ -168,6 +168,143 @@
         margin-top: 0.5rem;
         text-align: center;
     }
+
+    @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.login-container {
+    min-height: 100vh;
+    background: rgba(102, 126, 234, 0.15);
+    padding: 2rem 0;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease-out;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 1000px;
+    margin: auto;
+    backdrop-filter: blur(5px);
+    animation: slideIn 0.8s ease-out;
+}
+
+.login-header h1 {
+    color: #333;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    animation: slideIn 0.8s ease-out 0.2s both;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 1rem;
+    animation: slideIn 0.8s ease-out 0.4s both;
+}
+
+.form-floating {
+    margin-bottom: 1.5rem;
+    animation: slideIn 0.8s ease-out 0.6s both;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    border: none;
+    padding: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    animation: slideIn 0.8s ease-out 0.8s both;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 1) 0%, rgba(118, 75, 162, 1) 100%);
+}
+
+.social-login {
+    border: 1px solid rgba(221, 221, 221, 0.5);
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    animation: slideIn 0.8s ease-out 1s both;
+}
+
+.login-image {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 1s ease-out;
+}
+
+.login-image img {
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.btn-register {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    text-decoration: none;
+    animation: slideIn 0.8s ease-out 1.2s both;
+}
+
+.btn-register:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Add hover effect for form inputs */
+.form-control:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.25);
+}
+
+/* Add a subtle animation to the divider */
+.divider::before,
+.divider::after {
+    animation: fadeIn 1s ease-out 1.4s both;
+}
+
+/* Add a subtle animation to the "Forgot password?" link */
+a {
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    transform: translateY(-2px);
+}
 </style>
 
 <div class="login-container">
@@ -204,7 +341,7 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="emailInput" value="{{ old('username') }}">
+                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="emailInput" value="{{ old('username') }} " >
                         <label for="emailInput">Tên Đăng Nhập</label>
                         @error('username')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -213,7 +350,7 @@
 
 
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput" placeholder="Mật khẩu">
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput" >
                         <label for="passwordInput">Mật khẩu</label>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>

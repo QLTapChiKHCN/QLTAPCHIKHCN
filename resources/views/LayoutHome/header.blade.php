@@ -12,7 +12,7 @@
           /></a>
         </div>
         <div class="col-md-4 mt-4 text-center header-color">
-          <h3><b>TẠP CHÍ CÔNG NGHỆ HUIT</b></h3>
+          <h3><b>TẠP CHÍ KHOA HỌC CÔNG NGHỆ HUIT</b></h3>
           <h5><b>HUIT TECHNOLOGY MAGAZINE</b></h5>
         </div>
         <div

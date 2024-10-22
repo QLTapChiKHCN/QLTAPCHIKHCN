@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoaiTacGia extends Model
 {
-    use HasFactory;
+
     protected $table = 'LoaiTacGia';
     protected $primaryKey = 'MaLTacGia';
+    protected $keyType = 'string';
     public $timestamps = false;
 
-    public function chiTietBaiViets()
+    protected $fillable = [
+        'MaLTacGia',
+        'TenLoai',
+    ];
+
+    public function chiTietBaiViet()
     {
-        return $this->hasMany(ChiTietBaiViet::class, 'MaLTacGia', 'MaLTacGia');
+        return $this->hasMany(ChiTietBaiViet::class, 'MaLTacGia');
     }
 }
