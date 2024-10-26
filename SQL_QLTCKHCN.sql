@@ -51,17 +51,17 @@ CREATE TABLE LoaiTacGia (
 GO
 CREATE TABLE ChuyenNganh(
    MaChuyenNganh varchar(10) Primary key,
-   TenChuyenNganh varchar(50)
+   TenChuyenNganh nvarchar(50)
 );
 Go
 CREATE TABLE DonVi(
 	MaDonVi varchar(10) primary key,
-	TenDonVi varchar(50)
+	TenDonVi nvarchar(50)
 	);
 Go
 CREATE TABLE QuocGia(
 	MaQG varchar(10) primary key,
-	TenQG varchar(50)
+	TenQG nvarchar(50)
 	);
 go
 -- Tạo bảng NguoiDung
