@@ -35,26 +35,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#!/home">
+                    <a class="nav-link" href="{{ route('Trangchu') }}">
                         <i class="bi bi-house-fill"></i>Trang chủ
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-justify"></i>Danh mục
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item-container">
-                            <a href="#!/quanlykinhke" class="dropdown-item">Quản lý kinh tế</a>
-                            <a href="#" class="dropdown-item">Khoa học - Công nghệ</a>
-                            <a href="#" class="dropdown-item">Google Scholar</a>
-                            <a href="#" class="dropdown-item">TCKH Việt Nam trực tuyến</a>
-                            <a href="#" class="dropdown-item">HĐ Chức danh Giáo sư</a>
-                            <a href="#" class="dropdown-item">Trường ĐH Công Thương</a>
-                        </li>
-                    </ul>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-newspaper"></i>Giới thiệu
@@ -64,6 +49,12 @@
                     <a class="nav-link" href="#">
                         <i class="bi bi-telephone-fill"></i>Liên hệ
                     </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{ route('quanlibaiviet') }}">
+                        <i class="bi bi-journals"></i>Quản lí bài viết
+                    </a>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('ShowPost') }}">

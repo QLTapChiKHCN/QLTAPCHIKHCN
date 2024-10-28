@@ -171,7 +171,7 @@
                 <a href="{{ route('ShowPost') }}" class="list-group-item">
                   <i class="bi bi-send me-2"></i>Gửi bài
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="{{ route('quanlibaiviet') }}" class="list-group-item">
                   <i class="bi bi-journal-text me-2"></i>Quản lý bài viết
                 </a>
               </div>

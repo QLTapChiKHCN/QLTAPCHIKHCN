@@ -83,7 +83,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'QL_TCKHCN1'),
+            'database' => env('DB_DATABASE', 'QL_TCKHCN'),
             'username' => env('DB_USERNAME', 'sa'),
             'password' => env('DB_PASSWORD', '123'),
             'charset' => 'utf8mb4',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Enums\TrangThaiBaiViet;
 use App\Http\Controllers\Controller;
 use App\Models\ChuyenMuc;
 use App\Models\LoaiTacGia;
@@ -56,7 +57,7 @@ class PostArticleController extends Controller
             'TuKhoa' => $request->tu_khoa,
             'TuKhoaTiengAnh' => $request->tu_khoa_en,
             'FileBaiViet' => $new_file,
-            'TrangThai' => 'Chờ xét duyệt',
+            'TrangThai' => TrangThaiBaiViet::CHO_XET_DUYET,
         ]);
 
         $tenTacGia = $request->ten_tac_gia;
