@@ -51,17 +51,17 @@ CREATE TABLE LoaiTacGia (
 GO
 CREATE TABLE ChuyenNganh(
    MaChuyenNganh varchar(10) Primary key,
-   TenChuyenNganh nvarchar(50)
+   TenChuyenNganh varchar(50)
 );
 Go
 CREATE TABLE DonVi(
 	MaDonVi varchar(10) primary key,
-	TenDonVi nvarchar(50)
+	TenDonVi varchar(50)
 	);
 Go
 CREATE TABLE QuocGia(
 	MaQG varchar(10) primary key,
-	TenQG nvarchar(50)
+	TenQG varchar(50)
 	);
 go
 -- Tạo bảng NguoiDung
@@ -79,6 +79,9 @@ CREATE TABLE NguoiDung (
     CCCD varchar(12),
     SoDienThoai varchar(15),
     DiaChi nvarchar(200),
+    ChuyenNganh nvarchar(100),
+    DonVi nvarchar(200),
+    QuocGia nvarchar(50),
     GioiTinh nvarchar(10)
 );
 GO
@@ -126,9 +129,11 @@ CREATE TABLE ChiTietPhanBien (
     MaNguoiDung varchar(10),
     KetQuaPhanBien nvarchar(50),
     YKienPhanBien ntext,
-    NgayPhanBien date,
-    FilePhanBien varchar(255), -- Lưu trữ file phản biện dưới dạng dữ liệu nhị phân
-    PRIMARY KEY (MaBaiBao, MaNguoiDung),
+	NgayNhan date,
+	NgayHetHan date,
+    NgayTraKetQua date null,
+    FilePhanBien varchar(255),
+    PRIMARY KEY (MaBaiBao, MaNguoiDung,NgayNhan),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
 );
@@ -137,8 +142,9 @@ GO
 CREATE TABLE LichSuChonNguoiPhanBien (
     MaNguoiDung varchar(10),
     MaBaiBao char(10),
+	NgayGuiYeuCau date,
     TrangThai nvarchar(50),
-    PRIMARY KEY (MaNguoiDung, MaBaiBao),
+    PRIMARY KEY (MaNguoiDung, MaBaiBao,NgayGuiYeuCau),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao)
 );
@@ -206,4 +212,35 @@ INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 ('LTG04', N'Tác giả liên hệ'),
 ('LTG05', N'Thành viên'),
 ('LTG06', N'Thư ký');
+
+--fake data
+-- Thêm dữ liệu vào bảng BaiViet
+INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
+VALUES
+('BV01', 'NN01', null, 'CM01', N'Nghiên cứu trí tuệ nhân tạo', N'Trí tuệ nhân tạo trong CNTT', 'AI in IT', N'Nghiên cứu về AI trong CNTT', N'AI research in IT', '2024-10-20', '2024-10-01', N'AI, Công nghệ', 'AI, Technology', 'file_bv01.pdf', N'Đã gửi'),
+('BV02', 'NN02', null, 'CM02', N'Phát triển kinh tế', N'Kinh tế bền vững', 'Sustainable Economy', N'Nghiên cứu về phát triển kinh tế bền vững', N'Sustainable economy research', '2024-10-21', '2024-10-02', N'Kinh tế, Phát triển', 'Economy, Development', 'file_bv02.pdf', N'Đã gửi'),
+('BV03', 'NN01', null, 'CM01', N'Ứng dụng Blockchain', N'Blockchain trong quản lý dữ liệu', 'Blockchain in Data Management', N'Nghiên cứu về ứng dụng blockchain trong quản lý dữ liệu', N'Blockchain research in data management', '2024-10-22', '2024-10-03', N'Blockchain, Dữ liệu', 'Blockchain, Data', 'file_bv03.pdf', N'Đã gửi'),
+('BV04', 'NN02', null, 'CM02', N'Phát triển nguồn nhân lực', N'Nhân lực chất lượng cao', 'High-Quality Workforce', N'Nghiên cứu về phát triển nhân lực chất lượng cao', N'Research on high-quality workforce development', '2024-10-23', '2024-10-04', N'Nhân lực, Phát triển', 'Workforce, Development', 'file_bv04.pdf', N'Đã gửi'),
+('BV05', 'NN01', null, 'CM01', N'Internet of Things', N'IoT và tương lai', 'IoT and the Future', N'Nghiên cứu về IoT trong tương lai', N'IoT research in the future', '2024-10-24', '2024-10-05', N'IoT, Công nghệ', 'IoT, Technology', 'file_bv05.pdf', N'Đã gửi');
+
+-- Thêm dữ liệu vào bảng ChiTietBaiViet
+INSERT INTO ChiTietBaiViet (MaBaiBao, MaNguoiDung, MaLTacGia)
+VALUES
+('BV01', 'ND01', 'LTG03'),  -- Lê Văn C là Tác giả chính
+('BV02', 'ND02', 'LTG03'),
+('BV03', 'ND04', 'LTG03'),
+('BV04', 'ND05', 'LTG03'),
+('BV05', 'ND05', 'LTG03');
+
+-- Thêm dữ liệu vào bảng ChiTietPhanBien
+INSERT INTO ChiTietPhanBien (MaBaiBao, MaNguoiDung, KetQuaPhanBien, YKienPhanBien, NgayPhanBien, FilePhanBien)
+VALUES
+('BV01', 'ND03', N'Đang duyệt', null, '2024-10-20', null),
+('BV02', 'ND03', N'Đang duyệt',null, '2024-10-21', null),
+('BV03', 'ND03', N'Chấp nhận', N'Nội dung tốt nhưng cần bổ sung thêm tài liệu tham khảo.', '2024-10-22', 'phanbien_bv03.pdf'),
+('BV04', 'ND03', N'Từ chối', N'Bài viết chưa đầy đủ nội dung.', '2024-10-23', 'phanbien_bv04.pdf'),
+('BV05', 'ND03', N'Chấp nhận', N'Nội dung sáng tạo và có tiềm năng phát triển.', '2024-10-24', 'phanbien_bv05.pdf');
+
+
+
 
