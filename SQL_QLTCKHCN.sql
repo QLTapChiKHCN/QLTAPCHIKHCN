@@ -191,10 +191,10 @@ INSERT INTO QuocGia (MaQG, TenQG) VALUES
 ('US', N'Hoa Kỳ');
 
 INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, MaDonVi, MaChuyenNganh, MaQG, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, GioiTinh) VALUES
-('ND01', 'HV01', 'HH03', 'DV01', 'CN01', 'VN', 'user1', 'pass1', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
+('ND01', 'HV01', 'HH02', 'DV01', 'CN01', 'VN', 'user1', 'pass1', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
 ('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'pass2', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
 ('ND03', 'HV03', 'HH02', 'DV01', 'CN03', 'VN', 'user3', 'pass3', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Nam'),
-('ND04', 'HV04', 'HH03', 'DV03', 'CN04', 'VN', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
+('ND04', 'HV04', 'HH01', 'DV03', 'CN04', 'VN', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
 ('ND05', 'HV01', 'HH02', 'DV01', 'CN05', 'VN', 'user5', 'pass5', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Cần Thơ', N'Nam');
 
 
@@ -205,6 +205,7 @@ INSERT INTO NguoiDung_VaiTro (MaNguoiDung, MaVaiTro) VALUES
 ('ND03', 'VT04'),  -- Lê Văn C là Người phản biện
 ('ND05', 'VT04');  -- Nguyễn Văn E là Người phản biện
 
+select * from NguoiDung
 INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 ('LTG01', N'Tác giả chính + Tác giả liên hệ'),
 ('LTG02', N'Hỗ trợ'),
@@ -215,32 +216,69 @@ INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 
 --fake data
 -- Thêm dữ liệu vào bảng BaiViet
+
+-- Thêm 5 bản ghi vào bảng BaiViet
 INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
-VALUES
-('BV01', 'NN01', null, 'CM01', N'Nghiên cứu trí tuệ nhân tạo', N'Trí tuệ nhân tạo trong CNTT', 'AI in IT', N'Nghiên cứu về AI trong CNTT', N'AI research in IT', '2024-10-20', '2024-10-01', N'AI, Công nghệ', 'AI, Technology', 'file_bv01.pdf', N'Đã gửi'),
-('BV02', 'NN02', null, 'CM02', N'Phát triển kinh tế', N'Kinh tế bền vững', 'Sustainable Economy', N'Nghiên cứu về phát triển kinh tế bền vững', N'Sustainable economy research', '2024-10-21', '2024-10-02', N'Kinh tế, Phát triển', 'Economy, Development', 'file_bv02.pdf', N'Đã gửi'),
-('BV03', 'NN01', null, 'CM01', N'Ứng dụng Blockchain', N'Blockchain trong quản lý dữ liệu', 'Blockchain in Data Management', N'Nghiên cứu về ứng dụng blockchain trong quản lý dữ liệu', N'Blockchain research in data management', '2024-10-22', '2024-10-03', N'Blockchain, Dữ liệu', 'Blockchain, Data', 'file_bv03.pdf', N'Đã gửi'),
-('BV04', 'NN02', null, 'CM02', N'Phát triển nguồn nhân lực', N'Nhân lực chất lượng cao', 'High-Quality Workforce', N'Nghiên cứu về phát triển nhân lực chất lượng cao', N'Research on high-quality workforce development', '2024-10-23', '2024-10-04', N'Nhân lực, Phát triển', 'Workforce, Development', 'file_bv04.pdf', N'Đã gửi'),
-('BV05', 'NN01', null, 'CM01', N'Internet of Things', N'IoT và tương lai', 'IoT and the Future', N'Nghiên cứu về IoT trong tương lai', N'IoT research in the future', '2024-10-24', '2024-10-05', N'IoT, Công nghệ', 'IoT, Technology', 'file_bv05.pdf', N'Đã gửi');
+VALUES 
+('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29', N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
+('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01', N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
+('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25', N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
+('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20', N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
+('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15', N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
 
--- Thêm dữ liệu vào bảng ChiTietBaiViet
+-- Thêm 5 bản ghi vào bảng ChiTietBaiViet
 INSERT INTO ChiTietBaiViet (MaBaiBao, MaNguoiDung, MaLTacGia)
-VALUES
-('BV01', 'ND01', 'LTG03'),  -- Lê Văn C là Tác giả chính
-('BV02', 'ND02', 'LTG03'),
-('BV03', 'ND04', 'LTG03'),
-('BV04', 'ND05', 'LTG03'),
-('BV05', 'ND05', 'LTG03');
+VALUES 
+('B001', 'ND01', 'LTG01'),
+('B001', 'ND02', 'LTG02'),
+('B002', 'ND03', 'LTG03'),
+('B003', 'ND04', 'LTG04'),
+('B004', 'ND05', 'LTG05');
 
--- Thêm dữ liệu vào bảng ChiTietPhanBien
-INSERT INTO ChiTietPhanBien (MaBaiBao, MaNguoiDung, KetQuaPhanBien, YKienPhanBien, NgayPhanBien, FilePhanBien)
-VALUES
-('BV01', 'ND03', N'Đang duyệt', null, '2024-10-20', null),
-('BV02', 'ND03', N'Đang duyệt',null, '2024-10-21', null),
-('BV03', 'ND03', N'Chấp nhận', N'Nội dung tốt nhưng cần bổ sung thêm tài liệu tham khảo.', '2024-10-22', 'phanbien_bv03.pdf'),
-('BV04', 'ND03', N'Từ chối', N'Bài viết chưa đầy đủ nội dung.', '2024-10-23', 'phanbien_bv04.pdf'),
-('BV05', 'ND03', N'Chấp nhận', N'Nội dung sáng tạo và có tiềm năng phát triển.', '2024-10-24', 'phanbien_bv05.pdf');
+-- Thêm 5 bản ghi vào bảng ChiTietPhanBien
+INSERT INTO ChiTietPhanBien (MaBaiBao, MaNguoiDung, KetQuaPhanBien, YKienPhanBien, NgayNhan, NgayTraKetQua, FilePhanBien)
+VALUES 
+('B001', 'ND01', null, null, '2024-10-30', null, 'review1.pdf'),
+('B002', 'ND02',null, null, '2024-10-30', null, 'review2.pdf'),
+('B003', 'ND03', null, null, '2024-10-29', null, 'review3.pdf'),
+('B004', 'ND04', null, null, '2024-10-28', null, 'review4.pdf'),
+('B005', 'ND05', null, null, '2024-10-29', null, 'review5.pdf');
+
+-- Thêm 5 bản ghi vào bảng LichSuChonNguoiPhanBien
+INSERT INTO LichSuChonNguoiPhanBien (MaNguoiDung, MaBaiBao, NgayGuiYeuCau, TrangThai)
+VALUES 
+('ND01', 'B003', '2024-10-30', N'Chờ phản hồi'),
+('ND02', 'B003', '2024-10-10', N'Chấp nhận'),
+('ND03', 'B003', '2024-10-03', N'Từ chối'),
+('ND04', 'B004', '2024-10-04', N'Chờ phản hồi'),
+('ND05', 'B005', '2024-10-05', N'Chờ phản hồi');
 
 
+-- trigger cập nhật ngày hết hạn
+CREATE TRIGGER trg_SetNgayHetHan
+ON ChiTietPhanBien
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    UPDATE cp
+    SET NgayHetHan = DATEADD(DAY, 10, i.NgayNhan)
+    FROM ChiTietPhanBien cp
+    JOIN inserted i ON cp.MaBaiBao = i.MaBaiBao AND cp.MaNguoiDung = i.MaNguoiDung
+    WHERE i.NgayNhan IS NOT NULL;
+END;
+GO
+-- Trigger cập nhật trạng thái nếu phản biện không trl 
+CREATE TRIGGER trg_UpdateTrangThai
+ON LichSuChonNguoiPhanBien
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Cập nhật TrangThai thành "Từ chối" nếu quá 3 ngày và vẫn là "Chờ phản hồi"
+    UPDATE LichSuChonNguoiPhanBien
+    SET TrangThai = N'Từ chối'
+    WHERE TrangThai = N'Chờ phản hồi' 
+      AND DATEDIFF(DAY, NgayGuiYeuCau, GETDATE()) > 3;
+END;
+GO
 
 
