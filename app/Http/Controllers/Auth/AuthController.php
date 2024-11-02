@@ -52,7 +52,6 @@ class AuthController extends Controller
         $laTacGia = $nguoiDung->vaiTros()
             ->where('NguoiDung_VaiTro.MaVaiTro', 'VT03')
             ->exists();
-
         if ($laTacGia) {
             Auth::login($nguoiDung);
             return redirect()->route('Trangchu')->with('success', 'Đăng nhập thành công');

@@ -58,4 +58,9 @@ class BaiViet extends Model
     {
         return $this->TrangThai === TrangThaiBaiViet::DANG_BAI->value;
     }
+
+    public function LichSuChonNguoiPhanBien()
+    {
+        return $this->hasMany(LichSuChonNguoiPhanBien::class, 'MaBaiBao');
+    }
 }

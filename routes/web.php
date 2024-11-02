@@ -4,6 +4,7 @@ use App\Http\Controllers\Home\TrangChuController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PhanBien\PhanBienController;
 use App\Http\Controllers\Post\PostArticleController;
+use App\Http\Controllers\PhanBien\RequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,13 @@ Route::get('/phanbien',[PhanBienController::class,'show'])->name('PhanBien');
 Route::get('/sotapchi/{id}', [TrangChuController::class, 'showBaiVietTheoTapChi'])->name('sotapchi.show');
 Route::get('/bai-viet/{id}', [TrangChuController::class, 'showChiTietBaiViet'])->name('bai-viet.show');
 Route::get('/check-email', [PostArticleController::class, 'checkEmail'])->name('check-email');
+// phản biện
+Route::get('/phanbien',[PhanBienController::class,'index'])->name('PhanBien');
+Route::get('/phanbien/To_Do_List',[PhanBienController::class,'To_Do_List'])->name('Working');
+Route::get('/phanbien/List_Request',[RequestController::class,'List_Request'])->name('Request');
+Route::post('/phanbien/list_Request/{baiviet}',[RequestController::class,'update_stt'])->name('update_bv');
+
+Route::get('/phanbien/To_Do_List/{baiviet}',[PhanBienController::class,'Art_Details'])->name('show');
+Route::get('/phanbien/showpdf/{fileName}',[PhanBienController::class,'show_Pdf'])->name('PDF');
+Route::get('/phanbien/download/{fileName}',[PhanBienController::class,'download_Pdf'])->name('downloadPDF');
+Route::Post('/phanbien/postpdf/{baiviet}',[PhanBienController::class,'post_Pdf'])->name('post_PDF');
