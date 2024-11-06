@@ -79,9 +79,6 @@ CREATE TABLE NguoiDung (
     CCCD varchar(12),
     SoDienThoai varchar(15),
     DiaChi nvarchar(200),
-    ChuyenNganh nvarchar(100),
-    DonVi nvarchar(200),
-    QuocGia nvarchar(50),
     GioiTinh nvarchar(10)
 );
 GO
