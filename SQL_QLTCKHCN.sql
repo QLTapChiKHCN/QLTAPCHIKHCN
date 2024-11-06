@@ -1,4 +1,3 @@
-﻿-- Tạo CSDL
 CREATE DATABASE QL_TCKHCN;
 GO
 
@@ -277,5 +276,3 @@ BEGIN
       AND DATEDIFF(DAY, NgayGuiYeuCau, GETDATE()) > 3;
 END;
 GO
-
-
