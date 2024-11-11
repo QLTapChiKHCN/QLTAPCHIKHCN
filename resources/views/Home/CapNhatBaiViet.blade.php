@@ -63,7 +63,7 @@
             <input type="text" name="ten_bai_viet" class="form-control" value="{{ $article->TenBaiBao }}" required>
           </div>
           <div class="col-12">
-            <label class="form-label">Tên bài viết (Tiếng Anh)</label>
+            <label class="form-label">Article Title</label>
             <input type="text" name="ten_bai_viet_en" class="form-control" value="{{ $article->TenBaiBaoTiengAnh }}" required>
           </div>
           <div class="col-12">
@@ -71,7 +71,7 @@
             <textarea name="tom_tat" id="summary" class="form-control" rows="4" required>{{ $article->TomTat }}</textarea>
           </div>
           <div class="col-12">
-            <label class="form-label">Tóm tắt (Tiếng Anh)</label>
+            <label class="form-label">Abstract</label>
             <textarea name="tom_tat_en" id="abstract" class="form-control" rows="4" required>{{ $article->TomTatTiengAnh }}</textarea>
           </div>
           <div class="col-md-6">
@@ -79,7 +79,7 @@
             <input type="text" name="tu_khoa" class="form-control" value="{{ $article->TuKhoa }}" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Từ khóa (Tiếng Anh)</label>
+            <label class="form-label">Keyword</label>
             <input type="text" name="tu_khoa_en" class="form-control" value="{{ $article->TuKhoaTiengAnh }}" required>
           </div>
         </div>

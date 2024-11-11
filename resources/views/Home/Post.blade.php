@@ -281,7 +281,7 @@
                   <input type="text" name="ten_bai_viet" class="form-control" placeholder="Nhập tên bài báo..." required>
                 </div>
                 <div class="col-12">
-                  <label class="form-label">Tên bài báo (Tiếng Anh)</label>
+                  <label class="form-label">Article Title</label>
                   <input type="text" name="ten_bai_viet_en" class="form-control" placeholder="Enter article title...">
                 </div>
                 <div class="col-12">
@@ -289,7 +289,7 @@
                   <textarea name="tom_tat" id="summary" class="form-control" rows="4" placeholder="Nhập tóm tắt bài báo..."></textarea>
                 </div>
                 <div class="col-12">
-                  <label class="form-label">Tóm tắt (Tiếng Anh)</label>
+                  <label class="form-label">Abstract</label>
                   <textarea name="tom_tat_en" id="abstract" class="form-control" rows="4" placeholder="Enter abstract..."></textarea>
                 </div>
                 <div class="col-md-6">
@@ -297,7 +297,7 @@
                   <input type="text" name="tu_khoa" class="form-control" placeholder="Nhập từ khóa bài báo..." required>
                 </div>
                 <div class="col-md-6">
-                  <label class="form-label">Từ khóa (Tiếng Anh)</label>
+                  <label class="form-label">Keyword</label>
                   <input type="text" name="tu_khoa_en" class="form-control" placeholder="Enter keywords...">
                 </div>
               </div>

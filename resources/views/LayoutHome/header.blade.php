@@ -11,9 +11,9 @@
               style="width: 350px"
           /></a>
         </div>
-        <div class="col-md-4 mt-4 text-center header-color">
+        <div class="col-md-5 mt-4 text-center header-color">
           <h3><b>TẠP CHÍ KHOA HỌC CÔNG NGHỆ HUIT</b></h3>
-          <h5><b>HUIT TECHNOLOGY MAGAZINE</b></h5>
+          <h5><b>HUIT JOURNAL OF SCIENCE AND TECHNOLOGY</b></h5>
         </div>
         <div
           class="col-md-4 mt-5 header-color"
