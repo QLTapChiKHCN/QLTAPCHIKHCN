@@ -139,7 +139,6 @@ CREATE TABLE LichSuSoDuyetBaiViet(
 	MaNguoiDung varchar(10),
 	NgayGuiYeuCau date,
 	NoiDungChinhSua nvarchar(500),
-	FileChinhSua varchar(255),
 	PRIMARY KEY(MaBaiBao, MaNguoiDung, NgayGuiYeuCau),
 	FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
 	FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
