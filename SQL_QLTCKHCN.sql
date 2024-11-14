@@ -134,6 +134,29 @@ CREATE TABLE ChiTietPhanBien (
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
 );
 GO
+CREATE TABLE LichSuSoDuyetBaiViet(
+	MaBaiBao char(10),
+	MaNguoiDung varchar(10),
+	NgayGuiYeuCau date,
+	NoiDungChinhSua nvarchar(500),
+	FileChinhSua varchar(255),
+	PRIMARY KEY(MaBaiBao, MaNguoiDung, NgayGuiYeuCau),
+	FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
+	FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
+	
+)
+Go
+CREATE TABLE PhanHoi(
+	MaBaiBao char(10),
+	MaNguoiDung varchar(10),
+	NgayGui date,
+	NoiDung nvarchar(500),
+	FileBienSoan varchar(255),
+	PRIMARY KEY(MaBaiBao, MaNguoiDung, NgayGui),
+	FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
+	FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
+	)
+Go
 -- Tạo bảng LichSuChonNguoiPhanBien
 CREATE TABLE LichSuChonNguoiPhanBien (
     MaNguoiDung varchar(10),
