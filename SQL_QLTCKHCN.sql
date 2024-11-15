@@ -21,6 +21,7 @@ CREATE TABLE SoTapChi (
     MaSoTC varchar(10) PRIMARY KEY,
     TenSo nvarchar(100),
     AnhBia varchar(200),
+    AnhBiaLocal varchar(200),
     NgayXuatBan date
 );
 GO
