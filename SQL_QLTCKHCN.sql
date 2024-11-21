@@ -161,8 +161,9 @@ Go
 CREATE TABLE LichSuChonNguoiPhanBien (
     MaNguoiDung varchar(10),
     MaBaiBao char(10),
-	NgayGuiYeuCau date,
+    NgayGuiYeuCau date,
     TrangThai nvarchar(50),
+    TrangThaiTBT nvarchar(50),
     PRIMARY KEY (MaNguoiDung, MaBaiBao,NgayGuiYeuCau),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao)
