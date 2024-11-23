@@ -239,13 +239,13 @@ INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 -- Thêm dữ liệu vào bảng BaiViet
 
 -- Thêm 5 bản ghi vào bảng BaiViet
-INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
+INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui,NgayChinhSua, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
 VALUES 
-('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29', N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
-('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01', N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
-('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25', N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
-('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20', N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
-('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15', N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
+('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29',null, N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
+('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01',null, N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
+('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25',null, N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
+('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20',null, N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
+('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15',null, N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
 
 -- Thêm 5 bản ghi vào bảng ChiTietBaiViet
 INSERT INTO ChiTietBaiViet (MaBaiBao, MaNguoiDung, MaLTacGia)
