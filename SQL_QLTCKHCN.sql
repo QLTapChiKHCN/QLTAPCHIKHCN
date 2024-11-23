@@ -104,7 +104,7 @@ CREATE TABLE BaiViet (
 	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
-	NgayChinhSua date,
+	
     TuKhoa nvarchar(200),
 	TuKhoaTiengAnh nvarchar(200),
     FileBaiViet varchar(255),
@@ -140,6 +140,7 @@ CREATE TABLE LichSuSoDuyetBaiViet(
 	MaBaiBao char(10),
 	MaNguoiDung varchar(10),
 	NgayGuiYeuCau date,
+	NgayChinhSua date,
 	NoiDungChinhSua nvarchar(500),
 	PRIMARY KEY(MaBaiBao, MaNguoiDung, NgayGuiYeuCau),
 	FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
