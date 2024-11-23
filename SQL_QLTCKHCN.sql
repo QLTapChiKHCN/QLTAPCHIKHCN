@@ -104,7 +104,6 @@ CREATE TABLE BaiViet (
 	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
-	
     TuKhoa nvarchar(200),
 	TuKhoaTiengAnh nvarchar(200),
     FileBaiViet varchar(255),
