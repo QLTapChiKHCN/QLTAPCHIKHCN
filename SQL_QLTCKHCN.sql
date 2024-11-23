@@ -104,6 +104,7 @@ CREATE TABLE BaiViet (
 	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
+	NgayChinhSua date,
     TuKhoa nvarchar(200),
 	TuKhoaTiengAnh nvarchar(200),
     FileBaiViet varchar(255),
@@ -300,3 +301,22 @@ BEGIN
       AND DATEDIFF(DAY, NgayGuiYeuCau, GETDATE()) > 3;
 END;
 GO
+--trigger từ chối bài viết nếu quá hạn chỉnh sửa
+CREATE TRIGGER trg_TuChoiBaiVietQuaHan
+ON LichSuSoDuyetBaiViet
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Cập nhật trạng thái bài viết thành "Từ chối" 
+    UPDATE BaiViet
+    SET TrangThai = N'Từ chối'
+    FROM BaiViet bv
+    INNER JOIN LichSuSoDuyetBaiViet ls ON bv.MaBaiBao = ls.MaBaiBao
+    WHERE 
+        DATEDIFF(DAY, ls.NgayGuiYeuCau, GETDATE()) > 5  -- Quá 5 ngày từ ngày yêu cầu
+        AND (
+            bv.NgayGuiLai IS NULL  -- Chưa gửi lại
+            OR bv.NgayGuiLai < ls.NgayGuiYeuCau  -- Hoặc ngày gửi lại cũ hơn ngày yêu cầu chỉnh sửa
+        )
+        AND bv.TrangThai = N'Chỉnh sửa'; --chỉ xét mấy bài có trạng thái là chỉnh sửa
+END;
