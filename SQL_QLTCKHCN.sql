@@ -302,7 +302,7 @@ BEGIN
 END;
 GO
 --trigger từ chối bài viết nếu quá hạn chỉnh sửa
-CREATE TRIGGER trg_TuChoiBaiVietQuaHan
+CREATE OR ALTER TRIGGER trg_TuChoiBaiVietQuaHan
 ON LichSuSoDuyetBaiViet
 AFTER INSERT, UPDATE
 AS
@@ -315,8 +315,8 @@ BEGIN
     WHERE 
         DATEDIFF(DAY, ls.NgayGuiYeuCau, GETDATE()) > 5  -- Quá 5 ngày từ ngày yêu cầu
         AND (
-            bv.NgayGuiLai IS NULL  -- Chưa gửi lại
-            OR bv.NgayGuiLai < ls.NgayGuiYeuCau  -- Hoặc ngày gửi lại cũ hơn ngày yêu cầu chỉnh sửa
+            ls.NgayChinhSua IS NULL  -- Chưa chỉnh sửa
+            OR ls.NgayChinhSua < ls.NgayGuiYeuCau  -- Hoặc ngày chỉnh sửa cũ hơn ngày yêu cầu
         )
-        AND bv.TrangThai = N'Chỉnh sửa'; --chỉ xét mấy bài có trạng thái là chỉnh sửa
+        AND bv.TrangThai = N'Chỉnh sửa';
 END;
