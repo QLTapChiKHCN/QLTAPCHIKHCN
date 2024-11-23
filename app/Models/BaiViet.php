@@ -26,6 +26,7 @@ class BaiViet extends Model
         'TomTatTiengAnh',
         'NgayXetDuyet',
         'NgayGui',
+        'NgayChinhSua',
         'TuKhoa',
         'TuKhoaTiengAnh',
         'FileBaiViet',
@@ -62,5 +63,8 @@ class BaiViet extends Model
     public function LichSuChonNguoiPhanBien()
     {
         return $this->hasMany(LichSuChonNguoiPhanBien::class, 'MaBaiBao');
+    }
+    public function lichSuSoDuyetBaiViet() {
+        return $this->hasMany(LichSuSoDuyetBaiViet::class, 'MaBaiBao');
     }
 }

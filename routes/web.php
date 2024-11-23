@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quanlibaiviet/{id}', [QuanLiBaiVietController::class, 'show'])->name('chitietbaiviet');
     Route::get('/edit-article/{id}', [QuanLiBaiVietController::class, 'edit'])->name('editArticle');
 Route::post('/update-article/{id}', [QuanLiBaiVietController::class, 'update'])->name('updateArticle');
+Route::post('/articles/{id}/feedback', [QuanLiBaiVietController::class, 'submitFeedback'])->name('submitFeedback');
+Route::get('/download-feedback-file/{id}', [QuanLiBaiVietController::class, 'downloadFeedbackFile'])->name('downloadFeedbackFile');
 });
 Route::get('/download-file/{id}', [QuanLiBaiVietController::class, 'downloadFile'])
     ->name('downloadFile')

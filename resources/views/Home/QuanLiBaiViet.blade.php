@@ -236,6 +236,100 @@ use App\Enums\TrangThaiBaiViet;
       grid-template-columns: 1fr;
     }
   }
+  <style>
+    .feedback-section {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .feedback-card .card {
+        border: 1px solid rgba(0,0,0,.1);
+        box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    }
+
+    .feedback-card .card-header {
+        background: #f8f9fa;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .feedback-card .text-muted {
+        font-size: 0.9rem;
+    }
+
+    .feedback-card .btn-sm {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+    }
+    .wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 20px;
+  }
+
+  .card {
+    border: none;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(to right, #2563eb, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+  }
+
+  .list-group-item {
+    border: none;
+    padding: 12px 20px;
+    color: #4b5563;
+    transition: all 0.3s;
+  }
+
+  .list-group-item:hover {
+    background: #f3f4f6;
+    color: #2563eb;
+  }
+
+  .list-group-item.active {
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 500;
+  }
+
+  .article-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .filter-item {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .filter-item:hover {
+    background: #e5e7eb;
+  }
+
+  .filter-item.active {
+    background: #2563eb;
+    color: white;
+  }
+</style>
 </style>
 
 <div class="wrapper">
@@ -288,7 +382,17 @@ use App\Enums\TrangThaiBaiViet;
             <a href="{{ route('quanlibaiviet', ['status' => 'Chinh_Sua']) }}"
                class="filter-item {{ request('status') == 'Chinh_Sua' ? 'active' : '' }}">
                 <i class="bi bi-pencil-square me-1"></i>
-                Cần chỉnh sửa
+                Chỉnh sửa sơ bộ
+            </a>
+            <a href="{{ route('quanlibaiviet', ['status' => 'Tien_Hanh_Phan_Bien']) }}"
+               class="filter-item {{ request('status') == 'Tien_Hanh_Phan_Bien' ? 'active' : '' }}">
+                <i class="bi bi-people me-1"></i>
+                Đang phản biện
+            </a>
+            <a href="{{ route('quanlibaiviet', ['status' => 'Yeu_Cau_Chinh_Sua']) }}"
+               class="filter-item {{ request('status') == 'Yeu_Cau_Chinh_Sua' ? 'active' : '' }}">
+                <i class="bi bi-pencil me-1"></i>
+                Chỉnh sửa theo phản biện
             </a>
             <a href="{{ route('quanlibaiviet', ['status' => 'Da_Duyet']) }}"
                class="filter-item {{ request('status') == 'Da_Duyet' ? 'active' : '' }}">
@@ -374,7 +478,7 @@ use App\Enums\TrangThaiBaiViet;
               @endif
 
               <div class="article-actions">
-                @if($article->TrangThai === TrangThaiBaiViet::CHINH_SUA->value)
+                @if($article->TrangThai === TrangThaiBaiViet::CHINH_SUA->value||$article->TrangThai ===TrangThaiBaiViet::YEU_CAU_CHINH_SUA->value)
                 <a href="{{ route('editArticle', $article->MaBaiBao) }}" class="btn btn-primary">
                   <i class="bi bi-pencil-square"></i>
                   Chỉnh sửa
@@ -393,8 +497,6 @@ use App\Enums\TrangThaiBaiViet;
     </div>
   </div>
 </div>
-
-
 
 
 @endsection

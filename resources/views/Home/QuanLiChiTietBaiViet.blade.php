@@ -145,6 +145,44 @@ use App\Enums\TrangThaiBaiViet;
         grid-template-columns: 1fr;
     }
 }
+.feedback-item:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.feedback-content {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+.revision-request {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-left: 4px solid #ffc107;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+.revision-request .revision-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.revision-request .revision-date {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.revision-request .revision-content {
+    color: #856404;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
 </style>
 
 <div class="article-detail">
@@ -154,6 +192,31 @@ use App\Enums\TrangThaiBaiViet;
             <i class="bi bi-arrow-left me-2"></i>Quay lại
         </a>
     </div>
+ <!-- Hiển thị yêu cầu chỉnh sửa nếu đang ở trạng thái chỉnh sửa -->
+ @if($article->TrangThai === TrangThaiBaiViet::CHINH_SUA->value)
+ @php
+     $latestRevisionRequest = $article->lichSuSoDuyetBaiViet()
+         ->orderBy('NgayGuiYeuCau', 'desc')
+         ->first();
+ @endphp
+ @if($latestRevisionRequest)
+ <div class="revision-request">
+     <div class="revision-header">
+         <h5 class="mb-0">
+             <i class="bi bi-exclamation-circle me-2"></i>
+             Yêu cầu chỉnh sửa
+         </h5>
+         <span class="revision-date">
+             <i class="bi bi-clock me-1"></i>
+             {{ \Carbon\Carbon::parse($latestRevisionRequest->NgayGuiYeuCau)->format('H:i d/m/Y') }}
+         </span>
+     </div>
+     <div class="revision-content">
+         {!! nl2br(e($latestRevisionRequest->NoiDungChinhSua)) !!}
+     </div>
+ </div>
+ @endif
+@endif
 
     <!-- Header bài viết -->
     <div class="article-header">
@@ -303,14 +366,168 @@ use App\Enums\TrangThaiBaiViet;
 
     <!-- Các nút hành động -->
     <div class="action-section">
-        @if($article->TrangThai === TrangThaiBaiViet::CHINH_SUA->value)
-        <a href="{{ route('editArticle', $article->MaBaiBao) }}" class="btn btn-primary">
-            <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa bài viết
-        </a>
+        @if($article->TrangThai === TrangThaiBaiViet::CHINH_SUA->value||$article->TrangThai ===TrangThaiBaiViet::YEU_CAU_CHINH_SUA->value)
+            <a href="{{ route('editArticle', $article->MaBaiBao) }}" class="btn btn-primary">
+                <i class="bi bi-pencil-square me-2"></i>Chỉnh sửa bài viết
+            </a>
         @endif
 
+        @if($article->TrangThai !== TrangThaiBaiViet::DA_DUYET->value &&
+            $article->TrangThai !== TrangThaiBaiViet::DANG_BAI->value &&
+            $article->TrangThai !== TrangThaiBaiViet::TU_CHOI->value)
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                <i class="bi bi-chat-dots me-2"></i>Gửi phản hồi
+            </button>
+        @endif
+    </div>
+
+    <!-- Modal Phản hồi -->
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ route('submitFeedback', $article->MaBaiBao) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="feedbackModalLabel">Gửi phản hồi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="feedbackContent" class="form-label">Nội dung phản hồi <span class="text-danger">*</span></label>
+                            <textarea
+                                class="form-control"
+                                id="feedbackContent"
+                                name="NoiDung"
+                                rows="5"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedbackFile" class="form-label">File biên soạn (không bắt buộc)</label>
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="feedbackFile"
+                                name="FileBienSoan"
+                                accept=".doc,.docx,.pdf"
+                            >
+                            <div class="form-text">Chấp nhận file .doc, .docx, .pdf (tối đa 10MB)</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send me-2"></i>Gửi phản hồi
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @if(session('success'))
+<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+    {{ session('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+</div>
+<!-- Phần hiển thị phản hồi -->
+@if(isset($feedbacks) && $feedbacks->isNotEmpty())
+<div class="info-section mt-4">
+    <div class="info-header">
+        <i class="bi bi-chat-dots me-2"></i>Lịch sử phản hồi
+    </div>
+    <div class="info-content">
+        @foreach($feedbacks as $feedback)
+        <div class="feedback-item mb-4 pb-4 border-bottom">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                    <strong>{{ $feedback->nguoiDung->HoTen }}</strong>
+                    <span class="text-muted ms-2">
+                        <i class="bi bi-clock me-1"></i>
+                        {{ \Carbon\Carbon::parse($feedback->NgayGui)->format('H:i d/m/Y') }}
+                    </span>
+                </div>
+                @if($feedback->FileBienSoan)
+                <a href="#"
+                   class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-download me-1"></i>
+                     file đính kèm
+                </a>
+                @endif
+            </div>
+            <div class="feedback-content">
+                {{ $feedback->NoiDung }}
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
+@endif
+<!-- Modal Thông báo thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">Thành công</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                    <p class="mt-3">{{ session('success') }}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thông báo thất bại -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Thất bại</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <i class="bi bi-x-circle text-danger" style="font-size: 3rem;"></i>
+                    <p class="mt-3">{{ session('error') }}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if(session('success') || session('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if(session('success'))
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        @endif
+
+        @if(session('error'))
+            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        @endif
+    });
+</script>
+@endif
 
 
 @endsection

@@ -15,7 +15,7 @@
                     @foreach($sotapchi as $so)
                     <div class="journal-item">
                         <div class="journal-cover">
-                            <img src="{{ asset('uploads/' . $so->AnhBia) }}" alt="{{ $so->TenSo }}" />
+                            <img src="{{ $so->AnhBia }}" alt="{{ $so->TenSo }}" />
                         </div>
                         <div class="journal-details">
                             <h3 class="journal-title">{{ $so->TenSo }}</h3>
@@ -87,20 +87,7 @@
                     </div>
                 </div>
 
-                <!-- Links Card -->
-                <div class="sidebar-card">
-                    <div class="card-header">
-                        <h3>LIÊN KẾT</h3>
-                    </div>
-                    <div class="links-list">
-                        <a href="#!/quanlykinhke" class="link-item">Quản lý kinh tế</a>
-                        <a href="#" class="link-item">Khoa học - Công nghệ</a>
-                        <a href="#" class="link-item">Google Scholar</a>
-                        <a href="#" class="link-item">TCKH Việt Nam trực tuyến</a>
-                        <a href="#" class="link-item">HĐ Chức danh Giáo sư</a>
-                        <a href="#" class="link-item">Trường ĐH Công Thương</a>
-                    </div>
-                </div>
+
 
                 <!-- Latest Issues Card -->
                 <div class="sidebar-card">
