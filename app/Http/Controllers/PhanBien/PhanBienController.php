@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Enums\TrangThaiBaiViet;
 use Illuminate\Support\Facades\Auth;
-
+use App\Enums\LichSuChonPhanBien;
+use App\Enums\TrangThaiChiTietPhanBien;
 
 class PhanBienController extends Controller
 {
@@ -19,65 +20,90 @@ class PhanBienController extends Controller
     {
         return view('Home.Phanbien');
     }
-        public function To_Do_List(Request $request)
-        {
-            $stt = $request->input('status');
-            $cv = Auth::id();
-            $nd = NguoiDung::find($cv);
-            $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
-            $list_CV = [];
-            if ($ctpb->isNotEmpty()) {
-                switch ($stt) {
-                    case 'Chờ phản hồi':
-                        foreach ($ctpb as $item) {
-                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai',TrangThaiBaiViet::DA_DUYET->value)->first();
-                            if ($baiViet) {
-                                $list_CV[] = [
-                                    'MaBaiBao' => $item->MaBaiBao,
-                                    'TenBaiBao' => $baiViet->TenBaiBao,
-                                    'TrangThai' => $baiViet->TrangThai,
-                                    'NgayNhan' => $item->NgayNhan
-                                ];
-                            }
-                        }
-                        break;
+    public function To_Do_List(Request $request)
+    {
+        $stt = $request->input('status');
+        $cv = Auth::id();
+        $nd = NguoiDung::find($cv);
+        $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
+        $list_CV = [];
 
-                    case 'Chấp nhận':
-                        foreach ($ctpb as $item) {
-                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai',TrangThaiBaiViet::DA_DUYET->value)->first();
-                            if ($baiViet) {
-                                $list_CV[] = [
-                                    'MaBaiBao' => $item->MaBaiBao,
-                                    'TenBaiBao' => $baiViet->TenBaiBao,
-                                    'TrangThai' => $baiViet->TrangThai,
-                                    'NgayNhan' => $item->NgayNhan
-                                ];
-                            }
-                        }
-                        break;
+        if ($ctpb->isNotEmpty()) {
+            switch ($stt) {
+                case 'Chờ phản hồi':
+                    foreach ($ctpb as $item) {
+                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
+                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value) {
+                            $list_CV[] = [
+                                'MaBaiBao' => $item->MaBaiBao,
+                                'TenBaiBao' => $baiViet->TenBaiBao,
+                                'TrangThai' => $item->KetQuaPhanBien,
+                                'NgayNhan' => $item->NgayNhan,
+                                'NgayHetHan' => $item->NgayHetHan,
+                                'FileBaiViet' => $baiViet->FileBaiViet
+                            ];
 
-                    case 'Từ chối':
-                        foreach ($ctpb as $item) {
-                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai',TrangThaiBaiViet::TU_CHOI->value)->first();
-                            if ($baiViet) {
-                                $list_CV[] = [
-                                    'MaBaiBao' => $item->MaBaiBao,
-                                    'TenBaiBao' => $baiViet->TenBaiBao,
-                                    'TrangThai' => $baiViet->TrangThai,
-                                    'NgayNhan' => $item->NgayNhan
-                                ];
-                            }
                         }
-                        break;
-                }
+                    }
+                    break;
+                case 'Chấp nhận':
+                    foreach ($ctpb as $item) {
+                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
+                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::DONG_Y->value) {
+                            $list_CV[] = [
+                                'MaBaiBao' => $item->MaBaiBao,
+                                'TenBaiBao' => $baiViet->TenBaiBao,
+                                'TrangThai' => $item->KetQuaPhanBien,
+                                'NgayNhan' => $item->NgayNhan,
+                                'NgayHetHan' => $item->NgayHetHan,
+                                'FileBaiViet' => $baiViet->FileBaiViet
+                            ];
+                        }
+                    }
+                    break;
+
+                case 'Từ chối':
+                    foreach ($ctpb as $item) {
+                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
+                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::TU_CHOI->value) {
+                            $list_CV[] = [
+                                'MaBaiBao' => $item->MaBaiBao,
+                                'TenBaiBao' => $baiViet->TenBaiBao,
+                                'TrangThai' => $item->KetQuaPhanBien,
+                                'NgayNhan' => $item->NgayNhan,
+                                'NgayHetHan' => $item->NgayHetHan,
+                                'FileBaiViet' => $baiViet->FileBaiViet
+                            ];
+                        }
+                    }
+                    break;
+                case 'Chỉnh sửa':
+                    foreach ($ctpb as $item) {
+                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
+                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::YEU_CAU_CHINH_SUA->value) {
+                            $list_CV[] = [
+                                'MaBaiBao' => $item->MaBaiBao,
+                                'TenBaiBao' => $baiViet->TenBaiBao,
+                                'TrangThai' => $item->KetQuaPhanBien,
+                                'NgayNhan' => $item->NgayNhan,
+                                'NgayHetHan' => $item->NgayHetHan,
+                                'FileBaiViet' => $baiViet->FileBaiViet
+                            ];
+                        }
+                    }
+                    break;
             }
-            return view('PB.ToDoList', compact('list_CV'));
         }
-    // Chi tiết phản biện
+
+        return view('PB.ToDoList', compact('list_CV'));
+    }
+
     public function Art_Details(BaiViet $baiviet)
     {
-        return view('PB.Articel-Details', compact('baiviet'));
+        $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet->MaBaiBao)->first();
+        return view('PB.Articel-Details', compact('baiviet', 'ctpb'));
     }
+
 
 
     public function show_Pdf($fileName)

@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end mt-5">
-            <?php if ($baiviet->TrangThai == \App\Enums\TrangThaiBaiViet::CHO_XET_DUYET->value):?>
+            <?php if ($baiviet->TrangThai == \App\Enums\TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value):?>
                 <a class="btn btn-primary" id="openFormButton">Tiến hành phản biện</a>
             <?php else: ?>
                 <button class="btn btn-secondary" disabled>Không thể phản biện</button>

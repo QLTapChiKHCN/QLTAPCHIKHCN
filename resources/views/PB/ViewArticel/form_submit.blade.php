@@ -8,7 +8,7 @@
                 <option value="" disabled selected>Chọn kết quả</option>
                 <option value="{{ \App\Enums\TrangThaiBaiViet::DA_DUYET->value }}">Đồng ý</option>
                 <option value="{{ \App\Enums\TrangThaiBaiViet::TU_CHOI->value }}">Từ chối</option>
-                <option value="{{ \App\Enums\TrangThaiBaiViet::CHINH_SUA->value }}">Chỉnh sửa</option>
+                <option value="{{ \App\Enums\TrangThaiBaiViet::YEU_CAU_CHINH_SUA->value }}">Chỉnh sửa</option>
             </select>
         </div>
         <div class="mb-3">

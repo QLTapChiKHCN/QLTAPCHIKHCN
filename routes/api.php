@@ -9,10 +9,14 @@ Route::get('/get-files', [APIGETBAIVIETCotroller::class, 'getFiles']); // Lấy 
 Route::get('/download-file/{id}', [APIGETBAIVIETCotroller::class, 'downloadFile']); // Tải file
 Route::get('/download-feedback/{maBaiBao}/{maNguoiDung}/{ngayGui}', [APIGETBAIVIETCotroller::class, 'downloadFilePhanHoi'])
     ->name('downloadFeedback');
-    Route::post('/upload-image', [APIGETHINHANH::class, 'upload']);
+
+Route::post('/upload-image', [APIGETHINHANH::class, 'upload']);
 
 Route::get('/download-result/{maBaiBao}/{maNguoiDung}/{ngayNhan}', [ApiKetQuaController::class, 'downloadFilePhanBien'])
 ->name('downloadresult');
+
+Route::post('/upload-image', [APIGETHINHANH::class, 'upload']);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

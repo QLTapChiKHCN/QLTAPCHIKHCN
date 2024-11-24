@@ -9,13 +9,15 @@ class ChiTietPhanBien extends Model
 {
     use HasFactory;
     protected $table = 'ChiTietPhanBien';
-    protected $primaryKey = 'MaNguoiDung';
+    protected $primaryKey = ['MaBaiBao', 'MaNguoiDung', 'NgayNhan'];
     public $timestamps = false;
     public $incrementing = false;
     protected $fillable = [
         'MaBaiBao',
         'MaNguoiDung',
         'KetQuaPhanBien',
+         'NgayNhan',
+         'NgayHetHan',
         'YKienPhanBien',
         'NgayPhanBien',
         'FilePhanBien'
