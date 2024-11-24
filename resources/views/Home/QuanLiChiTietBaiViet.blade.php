@@ -425,19 +425,7 @@ use App\Enums\TrangThaiBaiViet;
         </div>
     </div>
 
-    @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
 
-@if(session('error'))
-<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-    {{ session('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
 </div>
 <!-- Phần hiển thị phản hồi -->
 @if(isset($feedbacks) && $feedbacks->isNotEmpty())
@@ -513,20 +501,22 @@ use App\Enums\TrangThaiBaiViet;
         </div>
     </div>
 </div>
-@if(session('success') || session('error'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        @if(session('success'))
-            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+@if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();
-        @endif
+        });
+    </script>
+@endif
 
-        @if(session('error'))
-            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+@if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
             errorModal.show();
-        @endif
-    });
-</script>
+        });
+    </script>
 @endif
 
 

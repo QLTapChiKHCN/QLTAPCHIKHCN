@@ -8,7 +8,8 @@ use App\Models\BaiViet;
 use App\Enums\TrangThaiBaiViet;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PhanHoi;
-use Illuminate\Support\Facades\Storage;
+
+use App\Models\LichSuSoDuyetBaiViet;
 class QuanLiBaiVietController extends Controller
 {
     //
@@ -110,72 +111,150 @@ class QuanLiBaiVietController extends Controller
     return view('Home.CapNhatBaiViet', compact('article'));
 }
 
-public function update(Request $request, $id)
-{
-    try {
-        $article = BaiViet::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        try {
+            $article = BaiViet::findOrFail($id);
 
-        // Validate request
-        $request->validate([
-            'tieu_de' => 'required',
-            'ten_bai_viet' => 'required',
-            'ten_bai_viet_en' => 'required',
-            'tom_tat' => 'required',
-            'tom_tat_en' => 'required',
-            'tu_khoa' => 'required',
-            'tu_khoa_en' => 'required',
-            'file' => 'nullable|mimes:doc,docx,pdf|max:10240',
-        ]);
+            // Validate các input
+            $request->validate([
+                'tieu_de' => 'required',
+                'ten_bai_viet' => 'required',
+                'ten_bai_viet_en' => 'required',
+                'tom_tat' => 'required',
+                'tom_tat_en' => 'required',
+                'tu_khoa' => 'required',
+                'tu_khoa_en' => 'required',
+                'file' => 'nullable|mimes:doc,docx,pdf|max:10240',
+            ]);
 
-        // Cập nhật thông tin bài viết
-        $article->TieuDe = $request->tieu_de;
-        $article->TenBaiBao = $request->ten_bai_viet;
-        $article->TenBaiBaoTiengAnh = $request->ten_bai_viet_en;
-        $article->TomTat = strip_tags($request->tom_tat);
-        $article->TomTatTiengAnh = strip_tags($request->tom_tat_en);
-        $article->TuKhoa = $request->tu_khoa;
-        $article->NgayChinhSua = now();
-        $article->TuKhoaTiengAnh = $request->tu_khoa_en;
-        $article->TrangThai = TrangThaiBaiViet::CHO_XET_DUYET->value;
+            // Cập nhật bài viết
+            $article->TieuDe = $request->tieu_de;
+            $article->TenBaiBao = $request->ten_bai_viet;
+            $article->TenBaiBaoTiengAnh = $request->ten_bai_viet_en;
+            $article->TomTat = strip_tags($request->tom_tat);
+            $article->TomTatTiengAnh = strip_tags($request->tom_tat_en);
+            $article->TuKhoa = $request->tu_khoa;
+            $article->TuKhoaTiengAnh = $request->tu_khoa_en;
+            $article->TrangThai = TrangThaiBaiViet::CHO_XET_DUYET->value;
 
-        // Xử lý upload file
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $path = 'public/storage/uploads/';
+            // Xử lý file
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = 'public/storage/uploads/';
 
-            // Tên file mới
-            $get_name = $file->getClientOriginalName();
-            $name_document = current(explode('.', $get_name));
-            $new_file = $name_document . rand(0, 99) . '.' . $file->getClientOriginalExtension();
+                // Tạo tên file mới
+                $get_name = $file->getClientOriginalName();
+                $name_document = current(explode('.', $get_name));
+                $new_file = $name_document . rand(0, 99) . '.' . $file->getClientOriginalExtension();
 
-            // Xóa file cũ nếu có
-            if ($article->FileBaiViet) {
-                $old_file_path = $path . $article->FileBaiViet;
-                if (file_exists($old_file_path)) {
-                    unlink($old_file_path); // Xóa file cũ
+                // Xóa file cũ nếu có
+                if ($article->FileBaiViet) {
+                    $old_file_path = $path . $article->FileBaiViet;
+                    if (file_exists($old_file_path)) {
+                        unlink($old_file_path);
+                    }
                 }
+
+                // Di chuyển file mới vào thư mục
+                $file->move($path, $new_file);
+                $article->FileBaiViet = $new_file;
+            }
+            LichSuSoDuyetBaiViet::where('MaBaiBao', $id)
+            ->where('NgayGuiYeuCau', function ($query) use ($id) {
+                $query->selectRaw('MAX(NgayGuiYeuCau)')
+                      ->from('LichSuSoDuyetBaiViet')
+                      ->where('MaBaiBao', $id);
+            })
+            ->whereNull('NgayChinhSua')
+            ->update([
+                'NgayChinhSua' => now()
+            ]);
+
+            // Lưu bài viết
+            $article->save();
+
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Bài viết đã được cập nhật thành công'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function updatePhanBien(Request $request, $id) {
+        try {
+            $article = BaiViet::findOrFail($id);
+
+
+            $request->validate([
+                'tieu_de' => 'required',
+                'ten_bai_viet' => 'required',
+                'ten_bai_viet_en' => 'required',
+                'tom_tat' => 'required',
+                'tom_tat_en' => 'required',
+                'tu_khoa' => 'required',
+                'tu_khoa_en' => 'required',
+                'file' => 'nullable|mimes:doc,docx,pdf|max:10240',
+            ]);
+
+
+            $article->TieuDe = $request->tieu_de;
+            $article->TenBaiBao = $request->ten_bai_viet;
+            $article->TenBaiBaoTiengAnh = $request->ten_bai_viet_en;
+            $article->TomTat = strip_tags($request->tom_tat);
+            $article->TomTatTiengAnh = strip_tags($request->tom_tat_en);
+            $article->TuKhoa = $request->tu_khoa;
+            $article->TuKhoaTiengAnh = $request->tu_khoa_en;
+            $article->TrangThai = TrangThaiBaiViet::CHO_XET_DUYET->value;
+
+            // Xử lý upload file
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = 'public/storage/uploads/';
+
+                // Tạo tên file mới
+                $get_name = $file->getClientOriginalName();
+                $name_document = current(explode('.', $get_name));
+                $new_file = $name_document . rand(0, 99) . '.' . $file->getClientOriginalExtension();
+
+                // Xóa file cũ nếu có
+                if ($article->FileBaiViet) {
+                    $old_file_path = $path . $article->FileBaiViet;
+                    if (file_exists($old_file_path)) {
+                        unlink($old_file_path);
+                    }
+                }
+
+                // Di chuyển file mới vào thư mục
+                $file->move($path, $new_file);
+                $article->FileBaiViet = $new_file;
             }
 
-            // Di chuyển file mới vào thư mục
-            $file->move($path, $new_file);
-            $article->FileBaiViet = $new_file;
+
+            $article->save();
+
+
+
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Bài viết đã được cập nhật thành công'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
+            ], 500);
         }
-
-
-        $article->save();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Bài viết đã được cập nhật thành công'
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Có lỗi xảy ra: ' . $e->getMessage()
-        ], 500);
     }
-}
-
     public function submitFeedback(Request $request, $id)
     {
         $request->validate([
@@ -197,34 +276,21 @@ public function update(Request $request, $id)
             if ($request->hasFile('FileBienSoan')) {
                 $file = $request->file('FileBienSoan');
                 $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/storage/feedbacks', $fileName);
+                $file->storeAs('public/storage/feedbacks/', $fileName);
                 $feedback->FileBienSoan = $fileName;
             }
 
+
             $feedback->save();
 
-            // Lấy bài viết và danh sách phản hồi mới nhất
-            $article = BaiViet::with([
-                'ngonNgu',
-                'chuyenMuc',
-                'chiTietBaiViet.nguoiDung',
-                'chiTietBaiViet.loaiTacGia'
-            ])->findOrFail($id);
 
-            $feedbacks = PhanHoi::where('MaBaiBao', $id)
-                ->with('nguoiDung')
-                ->orderBy('NgayGui', 'desc')
-                ->get();
+                return redirect()
+                ->route('showArticle', $id)
+                ->with('success', 'Phản hồi đã được gửi thành công');
 
-            return redirect()->route('showArticle', $id)
-                ->with('success', 'Phản hồi đã được gửi thành công')
-                ->with('article', $article)
-                ->with('feedbacks', $feedbacks);
 
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Có lỗi xảy ra khi gửi phản hồi. Vui lòng thử lại.')
-                ->withInput();
+            return redirect()->back();
         }
     }
 

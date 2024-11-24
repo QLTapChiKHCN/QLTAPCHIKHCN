@@ -34,8 +34,15 @@
   <div class="wrapper">
     <div class="main-content">
       <h2 class="mb-4">Chỉnh sửa bài viết</h2>
-
-      <form id="editArticleForm" action="{{ route('updateArticle', $article->MaBaiBao) }}" method="POST" enctype="multipart/form-data">
+      @php
+      use App\Enums\TrangThaiBaiViet;
+      @endphp
+      <form id="editArticleForm"
+    action="{{ $article->TrangThai == TrangThaiBaiViet::CHINH_SUA->value
+        ? route('updateArticle', $article->MaBaiBao)
+        : route('updatePhanBien', $article->MaBaiBao) }}"
+    method="POST"
+    enctype="multipart/form-data">
         @csrf
 
         <!-- Thông tin không được phép chỉnh sửa -->

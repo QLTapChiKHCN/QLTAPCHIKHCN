@@ -18,6 +18,7 @@ class LichSuSoDuyetBaiViet extends Model
         'MaBaiBao',
         'MaNguoiDung',
         'NgayGuiYeuCau',
+        'NgayChinhSua',
         'NoiDungChinhSua'
     ];
 
