@@ -15,6 +15,7 @@
     <script src="https://cdn.tiny.cloud/1/d65420k7p618ngilkrjmefv3dayjqvwk61qiigco4l3mth6f/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/4.0.0/js/froala_editor.pkgd.min.js"></script>
+
     <style>
         :root {
             --primary-color: #1a73e8;

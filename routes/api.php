@@ -4,12 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIGETBAIVIETCotroller;
 use App\Http\Controllers\APIGETHINHANH;
-
+use App\Http\Controllers\ApiKetQuaController;
 Route::get('/get-files', [APIGETBAIVIETCotroller::class, 'getFiles']); // Lấy danh sách file
 Route::get('/download-file/{id}', [APIGETBAIVIETCotroller::class, 'downloadFile']); // Tải file
 Route::get('/download-feedback/{maBaiBao}/{maNguoiDung}/{ngayGui}', [APIGETBAIVIETCotroller::class, 'downloadFilePhanHoi'])
     ->name('downloadFeedback');
-    Route::post('/upload-image', [APIGETHINHANH::class, 'upload']);
+Route::post('/upload-image', [APIGETHINHANH::class, 'upload']);
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +24,6 @@ Route::get('/download-feedback/{maBaiBao}/{maNguoiDung}/{ngayGui}', [APIGETBAIVI
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/download-result/{maBaiBao}/{maNguoiDung}/{ngayNhan}', [ApiKetQuaController::class, 'downloadFilePhanBien'])
+    ->name('downloadresult');

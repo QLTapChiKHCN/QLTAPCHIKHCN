@@ -17,7 +17,8 @@ class LichSuChonNguoiPhanBien extends Model
         'MaNguoiDung',
         'MaBaiBao',
         'NgayGuiYeuCau',
-        'TrangThai'
+        'TrangThai',
+        'TrangThaiTBT'
     ];
     public function BaiViet()
     {

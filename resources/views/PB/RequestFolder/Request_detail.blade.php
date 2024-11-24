@@ -27,7 +27,33 @@
                         <span class="info-label">Từ khóa:</span>
                         {{$item->BaiViet->TuKhoa}}
                     </div>
+                    <div class="info-item">
+                        <!-- Button mở modal hiển thị tóm tắt -->
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalSummary{{$item->MaBaiBao}}">
+                            Xem Tóm Tắt
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Modal Tóm Tắt Nội Dung -->
+                <div class="modal fade" id="modalSummary{{$item->MaBaiBao}}" tabindex="-1" aria-labelledby="modalSummaryLabel{{$item->MaBaiBao}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalSummaryLabel{{$item->MaBaiBao}}">Tóm Tắt Nội Dung - {{$item->BaiViet->TenBaiBao}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Nội dung Tóm Tắt -->
+                                <p>{{ $item->BaiViet->TomTat }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 @if ($item->TrangThai == \App\Enums\TrangThaiYeuCau::CHO_PHAN_HOI->value)
                     <form action="{{ route('update_bv', $item->MaBaiBao) }}" method="POST">
                         @csrf

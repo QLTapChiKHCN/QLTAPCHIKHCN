@@ -122,6 +122,11 @@
         <i class="bi bi-x-circle me-1"></i>
         Từ chối
       </a>
+      <a href="{{ route('Working', ['status' => 'Chỉnh sửa']) }}"
+        class="filter-item {{ request('status') == 'Chỉnh sửa' ? 'active' : '' }}">
+       <i class="bi bi-x-circle me-1"></i>
+       Chỉnh sửa
+     </a>
     </div>
   </div>
 </div>
