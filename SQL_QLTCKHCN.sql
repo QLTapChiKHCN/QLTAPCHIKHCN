@@ -20,9 +20,10 @@ GO
 CREATE TABLE SoTapChi (
     MaSoTC varchar(10) PRIMARY KEY,
     TenSo nvarchar(100),
-    AnhBia varchar(200),
-    AnhBiaLocal varchar(200),
-    NgayXuatBan date
+    AnhBia nvarchar(200),
+    AnhBiaLocal nvarchar(200),
+    NgayXuatBan date,
+	TrangThai nvarchar(50)
 );
 GO
 -- Tạo bảng HocVi
@@ -89,7 +90,7 @@ CREATE TABLE NguoiDung_VaiTro (
     PRIMARY KEY (MaNguoiDung, MaVaiTro),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung),
     FOREIGN KEY (MaVaiTro) REFERENCES VaiTro(MaVaiTro)
-);
+);		
 GO
 -- Tạo bảng BaiViet
 CREATE TABLE BaiViet (
@@ -144,7 +145,6 @@ CREATE TABLE LichSuSoDuyetBaiViet(
 	PRIMARY KEY(MaBaiBao, MaNguoiDung, NgayGuiYeuCau),
 	FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
 	FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
-	
 )
 Go
 CREATE TABLE PhanHoi(
@@ -211,9 +211,10 @@ INSERT INTO QuocGia (MaQG, TenQG) VALUES
 ('VN', N'Việt Nam'),
 ('US', N'Hoa Kỳ');
 
+-- Pass user 1 là pass1, của user 2 là pass2
 INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, MaDonVi, MaChuyenNganh, MaQG, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, GioiTinh) VALUES
-('ND01', 'HV01', 'HH02', 'DV01', 'CN01', 'VN', 'user1', 'pass1', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
-('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'pass2', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
+('ND01', 'HV01', 'HH02', 'DV01', 'CN01', 'VN', 'user1', 'a722c63db8ec8625af6cf71cb8c2d939', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
+('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'c1572d05424d0ecb2a65ec6a82aeacbf', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
 ('ND03', 'HV03', 'HH02', 'DV01', 'CN03', 'VN', 'user3', 'pass3', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Nam'),
 ('ND04', 'HV04', 'HH01', 'DV03', 'CN04', 'VN', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
 ('ND05', 'HV01', 'HH02', 'DV01', 'CN05', 'VN', 'user5', 'pass5', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Cần Thơ', N'Nam');
@@ -239,13 +240,13 @@ INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 -- Thêm dữ liệu vào bảng BaiViet
 
 -- Thêm 5 bản ghi vào bảng BaiViet
-INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui,NgayChinhSua, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
+INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
 VALUES 
-('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29',null, N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
-('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01',null, N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
-('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25',null, N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
-('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20',null, N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
-('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15',null, N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
+('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29', N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
+('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01', N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
+('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25', N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
+('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20', N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
+('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15', N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
 
 -- Thêm 5 bản ghi vào bảng ChiTietBaiViet
 INSERT INTO ChiTietBaiViet (MaBaiBao, MaNguoiDung, MaLTacGia)
