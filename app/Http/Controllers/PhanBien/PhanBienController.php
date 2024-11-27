@@ -21,14 +21,31 @@ class PhanBienController extends Controller
         return view('Home.Phanbien');
     }
     public function To_Do_List(Request $request)
-    {
-        $stt = $request->input('status');
-        $cv = Auth::id();
-        $nd = NguoiDung::find($cv);
-        $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
-        $list_CV = [];
+{
+    $stt = $request->input('status'); // Lấy trạng thái từ request
+    $cv = Auth::id(); // Lấy ID người dùng hiện tại
+    $nd = NguoiDung::find($cv); // Tìm thông tin người dùng
+    $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get(); // Lấy danh sách công việc
+    $list_CV = []; // Danh sách công việc trả về
 
-        if ($ctpb->isNotEmpty()) {
+    if ($ctpb->isNotEmpty()) {
+        // Nếu không có trạng thái (request rỗng), lấy toàn bộ
+        if (!$stt) {
+            foreach ($ctpb as $item) {
+                $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
+                if ($baiViet) {
+                    $list_CV[] = [
+                        'MaBaiBao' => $item->MaBaiBao,
+                        'TenBaiBao' => $baiViet->TenBaiBao,
+                        'TrangThai' => $item->KetQuaPhanBien,
+                        'NgayNhan' => $item->NgayNhan,
+                        'NgayHetHan' => $item->NgayHetHan,
+                        'FileBaiViet' => $baiViet->FileBaiViet
+                    ];
+                }
+            }
+        } else {
+            // Nếu có trạng thái, lọc theo từng trường hợp
             switch ($stt) {
                 case 'Chờ phản hồi':
                     foreach ($ctpb as $item) {
@@ -42,7 +59,6 @@ class PhanBienController extends Controller
                                 'NgayHetHan' => $item->NgayHetHan,
                                 'FileBaiViet' => $baiViet->FileBaiViet
                             ];
-
                         }
                     }
                     break;
@@ -61,7 +77,6 @@ class PhanBienController extends Controller
                         }
                     }
                     break;
-
                 case 'Từ chối':
                     foreach ($ctpb as $item) {
                         $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
@@ -94,9 +109,11 @@ class PhanBienController extends Controller
                     break;
             }
         }
-
-        return view('PB.ToDoList', compact('list_CV'));
     }
+
+    return view('PB.ToDoList', compact('list_CV'));
+}
+
 
     public function Art_Details(BaiViet $baiviet)
     {

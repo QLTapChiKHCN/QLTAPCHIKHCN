@@ -267,10 +267,6 @@ footer .bottom-bar p {
 
     @include('LayoutHome.header')
     @yield('content')
-
-
-
-
     <footer>
         <div class="container">
             <div class="row">

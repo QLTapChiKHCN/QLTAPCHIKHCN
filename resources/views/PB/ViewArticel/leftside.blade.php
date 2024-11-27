@@ -13,6 +13,7 @@
                 @if($baiviet->FileBaiViet)
                     <a href="{{ route('PDF', $baiviet->FileBaiViet) }}" class="card-link" target="_blank">PDF</a>
                     <a href="{{ route('downloadPDF', $baiviet->FileBaiViet) }}" class="card-link">Download</a>
+                    <a href="{{ route('downloadPDF', 'BieuMau.docx') }}" class="card-link">Tải biểu mẫu</a>
                 @else
                     <span>Không có file PDF</span>
                 @endif
