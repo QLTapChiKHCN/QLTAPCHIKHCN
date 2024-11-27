@@ -9,7 +9,7 @@ CREATE TABLE NgonNgu (
     MaNgonNgu varchar(10) PRIMARY KEY,
     TenNgonNgu nvarchar(50)
 );
-GO	
+GO
 -- Tạo bảng ChuyenMuc
 CREATE TABLE ChuyenMuc (
     MaChuyenMuc varchar(10) PRIMARY KEY,
@@ -52,17 +52,17 @@ CREATE TABLE LoaiTacGia (
 GO
 CREATE TABLE ChuyenNganh(
    MaChuyenNganh varchar(10) Primary key,
-   TenChuyenNganh varchar(50)
+   TenChuyenNganh nvarchar(50)
 );
 Go
 CREATE TABLE DonVi(
 	MaDonVi varchar(10) primary key,
-	TenDonVi varchar(50)
+	TenDonVi nvarchar(50)
 	);
 Go
 CREATE TABLE QuocGia(
 	MaQG varchar(10) primary key,
-	TenQG varchar(50)
+	TenQG nvarchar(50)
 	);
 go
 -- Tạo bảng NguoiDung
@@ -211,7 +211,6 @@ INSERT INTO QuocGia (MaQG, TenQG) VALUES
 ('VN', N'Việt Nam'),
 ('US', N'Hoa Kỳ');
 
--- Pass user 1 là pass1, của user 2 là pass2
 INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, MaDonVi, MaChuyenNganh, MaQG, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, GioiTinh) VALUES
 ('ND01', 'HV01', 'HH02', 'DV01', 'CN01', 'VN', 'user1', 'a722c63db8ec8625af6cf71cb8c2d939', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
 ('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'c1572d05424d0ecb2a65ec6a82aeacbf', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
