@@ -23,7 +23,7 @@ CREATE TABLE SoTapChi (
     AnhBia nvarchar(200),
     AnhBiaLocal nvarchar(200),
     NgayXuatBan date,
-	TrangThai nvarchar(50)
+	TrangThai bit
 );
 GO
 -- Tạo bảng HocVi
