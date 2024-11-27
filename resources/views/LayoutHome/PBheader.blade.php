@@ -35,11 +35,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('PhanBien')}}">
-                        <i class="bi bi-house-fill"></i>Trang chủ
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link"  href ="{{route('Working')}}">
                         <i class="bi bi-house-fill"></i>Danh sách phản biện
                     </a>
@@ -47,11 +42,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('Request')}}">
                         <i class="bi bi-newspaper"></i>Yêu cầu
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-telephone-fill"></i>Liên hệ
                     </a>
                 </li>
                 <li class="nav-item dropdown">
