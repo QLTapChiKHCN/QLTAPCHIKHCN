@@ -6,9 +6,9 @@
             <label for="result" class="form-label">Kết quả phản biện</label>
             <select id="result" name="result" class="form-select" required>
                 <option value="" disabled selected>Chọn kết quả</option>
-                <option value="{{ \App\Enums\TrangThaiBaiViet::DA_DUYET->value }}">Đồng ý</option>
-                <option value="{{ \App\Enums\TrangThaiBaiViet::TU_CHOI->value }}">Từ chối</option>
-                <option value="{{ \App\Enums\TrangThaiBaiViet::YEU_CAU_CHINH_SUA->value }}">Chỉnh sửa</option>
+                <option value="{{ \App\Enums\TrangThaiChiTietPhanBien::DA_DUYET->value }}">Đồng ý</option>
+                <option value="{{ \App\Enums\TrangThaiChiTietPhanBien::TU_CHOI->value }}">Từ chối</option>
+                <option value="{{ \App\Enums\TrangThaiChiTietPhanBien::YEU_CAU_CHINH_SUA->value }}">Chỉnh sửa</option>
             </select>
         </div>
         <div class="mb-3">
