@@ -13,7 +13,9 @@ class TrangChuController extends Controller
     public function index(Request $request)
     {
         $query = SoTapChi::where('TrangThai', 1);
-
+        if ($request->has('search') && $request->search != '') {
+            $query->where('TenSo', 'like', '%' . $request->search . '%');
+        }
         if ($request->has('filter')) {
             switch ($request->filter) {
                 case 'latest':

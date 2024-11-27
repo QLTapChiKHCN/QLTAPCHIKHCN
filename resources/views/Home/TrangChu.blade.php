@@ -70,13 +70,14 @@
             <!-- Sidebar giữ nguyên như cũ -->
             <aside class="col-lg-3">
                 <!-- Search Card -->
+                <!-- Sidebar Search Card -->
                 <div class="sidebar-card">
                     <div class="card-header">
                         <h3>TÌM KIẾM</h3>
                     </div>
                     <div class="card-body">
-                        <form class="search-form" role="search">
-                            <input type="search" placeholder="Tìm kiếm..." aria-label="Search" />
+                        <form class="search-form" role="search" method="GET" action="{{ route('Trangchu') }}">
+                            <input type="search" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm theo tên..." aria-label="Search" />
                             <button type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="11" cy="11" r="8"></circle>
@@ -87,6 +88,11 @@
                     </div>
                 </div>
 
+                @if($sotapchi->isEmpty())
+                <div class="alert alert-warning">
+                    Không tồn tại số tạp chí nào với tên tìm kiếm "{{ request('search') }}".
+                </div>
+            @endif
 
 
                 <!-- Latest Issues Card -->
