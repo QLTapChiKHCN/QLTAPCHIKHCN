@@ -12,7 +12,7 @@ class TrangChuController extends Controller
 {
     public function index(Request $request)
     {
-        $query = SoTapChi::query();
+        $query = SoTapChi::where('TrangThai', 1);
 
         if ($request->has('filter')) {
             switch ($request->filter) {

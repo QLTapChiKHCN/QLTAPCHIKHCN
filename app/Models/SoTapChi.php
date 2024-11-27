@@ -20,6 +20,7 @@ class SoTapChi extends Model
         'TenSo',
         'AnhBia',
         'NgayXuatBan',
+        'TrangThai',
     ];
 
     public function baiViet()

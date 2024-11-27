@@ -33,15 +33,11 @@ class RequestController extends Controller
     {
         try {
             $rs = $request->input('result');
-            dump($rs);
-            dump(trim($maBaibao));
-            dump(Auth::id());
+
             $updated = LichSuChonNguoiPhanBien::where('MaBaiBao', trim($maBaibao))
                 ->where('MaNguoiDung', Auth::id())
                 ->update(['TrangThai' => $rs]);
-            dump(TrangThaiYeuCau::CHAP_NHAN->value);
-            dump(TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value);
-            dump($updated);
+
             if ($rs == TrangThaiYeuCau::CHAP_NHAN->value && !$updated) {
                 $kq = ChiTietPhanBien::create([
                     'MaBaiBao' => trim($maBaibao),
