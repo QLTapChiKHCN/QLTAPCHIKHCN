@@ -316,7 +316,8 @@ a:hover {
             <div class="col-md-6 login-image">
                 <div class="content-wrapper">
                     <img src="{{ asset('assets_home/image/logo.png') }}" alt="Login illustration" class="img-fluid">
-                    <h2 class="mb-3">Tạp Chí Khoa Học Công Nghệ</h2>
+                    <h2 class="mb-3 text-center align-items-center d-flex justify-content-center">Tạp Chí Khoa Học
+                    <br>Công Nghệ</h2>
                     <p class="register-text">Chưa có tài khoản? Đăng ký ngay để trải nghiệm!</p>
                     <a href="{{ route('Register') }}" class="btn btn-register">
                         <i class="bi bi-person-plus-fill me-2"></i>Đăng Ký Ngay
