@@ -8,6 +8,7 @@ use App\Http\Controllers\Post\QuanLiBaiVietController;
 use App\Http\Controllers\PhanBien\RequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIGETBAIVIETCotroller;
+use App\Http\Controllers\Auth\QuenMatKhauController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +57,8 @@ Route::get('/phanbien/showpdf/{fileName}',[PhanBienController::class,'show_Pdf']
 Route::get('/phanbien/download/{fileName}',[PhanBienController::class,'download_Pdf'])->name('downloadPDF');
 Route::Post('/phanbien/postpdf/{baiviet}',[PhanBienController::class,'post_Pdf'])->name('post_PDF');
 
+//quen mk
+Route::get('quen-mat-khau', [QuenMatKhauController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('quen-mat-khau', [QuenMatKhauController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('dat-lai-mat-khau/{token}', [QuenMatKhauController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('dat-lai-mat-khau', [QuenMatKhauController::class, 'submitResetPasswordForm'])->name('reset.password.post');

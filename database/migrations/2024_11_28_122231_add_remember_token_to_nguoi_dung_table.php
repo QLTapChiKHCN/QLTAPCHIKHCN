@@ -11,7 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('NguoiDung', function (Blueprint $table) {
+
+            $table->string('remember_token')->nullable()->comment('Mã nhớ đăng nhập');
+        });
     }
 
     /**
@@ -19,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('NguoiDung', function (Blueprint $table) {
+
+            $table->dropColumn('remember_token');
+        });
     }
 };

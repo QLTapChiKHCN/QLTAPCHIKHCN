@@ -61,12 +61,15 @@ class AuthController extends Controller
             ])->withInput();
         }
 
-
         $laTacGia = $nguoiDung->vaiTros()
             ->where('NguoiDung_VaiTro.MaVaiTro', 'VT03')
             ->exists();
+
         if ($laTacGia) {
-            Auth::login($nguoiDung);
+
+            $remember = $request->has('remember_me');
+            Auth::login($nguoiDung, $remember);
+
             return redirect()->route('Trangchu')->with('success', 'Đăng nhập thành công');
         } else {
             return back()->withErrors(['roles' => 'Bạn không có quyền truy cập vào hệ thống này']);

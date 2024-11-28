@@ -349,13 +349,18 @@ a:hover {
                     </div>
 
 
-                    <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput" >
+                    <div class="form-floating mb-3 position-relative">
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="passwordInput">
                         <label for="passwordInput">Mật khẩu</label>
+                        <span class="position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);">
+                            <i class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
+                        </span>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+
 
 
                     @error('roles')
@@ -365,10 +370,10 @@ a:hover {
 
                     <div class="d-flex justify-content-between mb-4">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <input type="checkbox" name="remember_me" class="form-check-input" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
                         </div>
-                        <a href="#" class="text-decoration-none">Quên mật khẩu?</a>
+                        <a href="{{ route('forget.password.get') }}" class="text-decoration-none">Quên mật khẩu?</a>
                     </div>
 
 
@@ -388,4 +393,19 @@ a:hover {
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('passwordInput');
+        const togglePassword = document.getElementById('togglePassword');
+
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    });
+    </script>
 @endsection
