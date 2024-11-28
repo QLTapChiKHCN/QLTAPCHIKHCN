@@ -320,3 +320,19 @@ BEGIN
         )
         AND bv.TrangThai = N'Chỉnh sửa';
 END;
+go
+
+--trigger đồng ý duyệt phản biện nếu quá 3 ngày chưa 
+CREATE OR ALTER TRIGGER trg_DongYDuyetPhanBien_TBT
+ON LichSuChonNguoiPhanBien
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Cập nhật trạng thái bên lịch sử chọn người phản biện TrangThaiTBT thành đồng ý 
+    UPDATE LichSuChonNguoiPhanBien
+    SET TrangThaiTBT = N'Đồng ý'
+    FROM LichSuChonNguoiPhanBien ls
+    WHERE 
+        DATEDIFF(DAY, ls.NgayGuiYeuCau, GETDATE()) > 3  -- Quá 3 ngày từ ngày yêu cầu
+        AND ls.TrangThaiTBT IS NULL  -- Chưa duyệt
+END;
