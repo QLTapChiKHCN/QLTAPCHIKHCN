@@ -123,19 +123,18 @@ CREATE TABLE ChiTietBaiViet (
 GO
 -- Tạo bảng ChiTietPhanBien
 CREATE TABLE ChiTietPhanBien (
+    MaChiTietPhanBien INT IDENTITY(1,1) PRIMARY KEY,
     MaBaiBao char(10),
     MaNguoiDung varchar(10),
     KetQuaPhanBien nvarchar(50),
     YKienPhanBien ntext,
-	NgayNhan date,
-	NgayHetHan date,
+    NgayNhan date,
+    NgayHetHan date,
     NgayTraKetQua date null,
     FilePhanBien varchar(255),
-    PRIMARY KEY (MaBaiBao, MaNguoiDung,NgayNhan),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung)
 );
-GO
 CREATE TABLE LichSuSoDuyetBaiViet(
 	MaBaiBao char(10),
 	MaNguoiDung varchar(10),
@@ -160,12 +159,12 @@ CREATE TABLE PhanHoi(
 Go
 -- Tạo bảng LichSuChonNguoiPhanBien
 CREATE TABLE LichSuChonNguoiPhanBien (
+    MaLichSuChonPhanBien INT IDENTITY(1,1) PRIMARY KEY,
     MaNguoiDung varchar(10),
     MaBaiBao char(10),
     NgayGuiYeuCau date,
     TrangThai nvarchar(50),
     TrangThaiTBT nvarchar(50),
-    PRIMARY KEY (MaNguoiDung, MaBaiBao,NgayGuiYeuCau),
     FOREIGN KEY (MaNguoiDung) REFERENCES NguoiDung(MaNguoiDung),
     FOREIGN KEY (MaBaiBao) REFERENCES BaiViet(MaBaiBao)
 );
