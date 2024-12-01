@@ -213,7 +213,7 @@ class QuanLiBaiVietController extends Controller
             $article->TomTatTiengAnh = strip_tags($request->tom_tat_en);
             $article->TuKhoa = $request->tu_khoa;
             $article->TuKhoaTiengAnh = $request->tu_khoa_en;
-            $article->TrangThai = TrangThaiBaiViet::CHO_XET_DUYET->value;
+            $article->TrangThai = TrangThaiBaiViet::TIEN_HANH_PHAN_BIEN->value;
 
             // Xử lý upload file
             if ($request->hasFile('file')) {

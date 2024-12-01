@@ -78,7 +78,7 @@
                         @endphp
 
                         @if ($laPhanBien)
-                            <li><a class="dropdown-item" href="{{ route('PhanBien') }}">Phản biện bài viết</a></li>
+                            <li><a class="dropdown-item" href="{{ route('Working') }}">Phản biện bài viết</a></li>
                         @endif
                     @else
                         <li><a class="dropdown-item" href="{{ route('Login') }}">Đăng nhập</a></li>

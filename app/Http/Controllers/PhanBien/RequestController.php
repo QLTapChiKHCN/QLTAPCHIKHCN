@@ -33,11 +33,9 @@ class RequestController extends Controller
     {
         try {
             $rs = $request->input('result');
-
             $updated = LichSuChonNguoiPhanBien::where('MaBaiBao', trim($maBaibao))
                 ->where('MaNguoiDung', Auth::id())
                 ->update(['TrangThai' => $rs]);
-
             if ($rs == TrangThaiYeuCau::CHAP_NHAN->value && !$updated) {
                 $kq = ChiTietPhanBien::create([
                     'MaBaiBao' => trim($maBaibao),
@@ -46,8 +44,8 @@ class RequestController extends Controller
                     'KetQuaPhanBien' => TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value,
                 ]);
             }
+            return redirect()->back();
         } catch (\Exception $e) {
-            // Xử lý ngoại lệ nếu có lỗi xảy ra
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }

@@ -22,14 +22,13 @@ class PhanBienController extends Controller
     }
     public function To_Do_List(Request $request)
 {
-    $stt = $request->input('status'); // Lấy trạng thái từ request
-    $cv = Auth::id(); // Lấy ID người dùng hiện tại
-    $nd = NguoiDung::find($cv); // Tìm thông tin người dùng
-    $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get(); // Lấy danh sách công việc
-    $list_CV = []; // Danh sách công việc trả về
+    $stt = $request->input('status');
+    $cv = Auth::id();
+    $nd = NguoiDung::find($cv);
+    $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
+    $list_CV = [];
 
     if ($ctpb->isNotEmpty()) {
-        // Nếu không có trạng thái (request rỗng), lấy toàn bộ
         if (!$stt) {
             foreach ($ctpb as $item) {
                 $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
@@ -65,7 +64,7 @@ class PhanBienController extends Controller
                 case 'Chấp nhận':
                     foreach ($ctpb as $item) {
                         $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::DONG_Y->value) {
+                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::DA_DUYET->value) {
                             $list_CV[] = [
                                 'MaBaiBao' => $item->MaBaiBao,
                                 'TenBaiBao' => $baiViet->TenBaiBao,
@@ -110,14 +109,14 @@ class PhanBienController extends Controller
             }
         }
     }
-
     return view('PB.ToDoList', compact('list_CV'));
 }
 
 
     public function Art_Details(BaiViet $baiviet)
     {
-        $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet->MaBaiBao)->first();
+        $cv = Auth::id();
+        $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet->MaBaiBao)->where('MaNguoiDung',$cv)->first();
         return view('PB.Articel-Details', compact('baiviet', 'ctpb'));
     }
 
@@ -151,7 +150,6 @@ class PhanBienController extends Controller
             $path = 'public/storage/uploads/';
             $file = $request->file('file');
             $new_file = null;
-
             if ($file) {
                 $get_name = $file->getClientOriginalName();
                 $name_document = current(explode('.', $get_name));
@@ -168,13 +166,6 @@ class PhanBienController extends Controller
                     'FilePhanBien' => $new_file,
                 ]);
 
-            $bv = BaiViet::where('MaBaiBao',trim($baiviet))->first();
-
-            $bv->update(
-                [
-                    'TrangThai' => $request->input('result')
-                ]
-                );
             }
             DB::commit();
             return redirect()->back()->with('success', 'Gửi file phản biện thành công');
