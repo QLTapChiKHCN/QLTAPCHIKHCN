@@ -265,6 +265,10 @@
                             <p class="helper-text">Vui lòng xác nhận các yêu cầu dưới đây trước khi tiếp tục</p>
                             <div class="requirements-box">
                                 <label>
+                                    <input type="checkbox" id="checkAllRequirements">
+                                    <span>Chọn tất cả các yêu cầu</span>
+                                </label>
+                                <label>
                                     <input type="checkbox" required>
                                     <span>Sự phù hợp với mục đích - phạm vi của Tạp chí</span>
                                 </label>
@@ -315,14 +319,17 @@
                                         <td><input type="text" name="sdt_tac_gia[]" class="form-control"
                                                 value="{{ $user->SoDienThoai }}" pattern="^\d{10}$"
                                                 title="Số điện thoại phải có 10 số" required></td>
-                                        <td>
-                                            <select name="loai_tac_gia[]" class="form-select" required>
-                                                <option value="">Chọn loại tác giả</option>
-                                                @foreach ($loaitacgia as $item)
-                                                    <option value="{{ $item->MaLTacGia }}">{{ $item->TenLoai }}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
+                                                <td>
+                                                    <select name="loai_tac_gia[]" class="form-select" required>
+                                                        <option value="">Chọn loại tác giả</option>
+                                                        @foreach ($loaitacgia as $item)
+                                                            <option value="{{ $item->MaLTacGia }}"
+                                                                    {{ $loop->first ? 'selected' : '' }}>
+                                                                {{ $item->TenLoai }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
                                         <td>
                                             <button type="button" class="btn btn-primary" id="addCoAuthorBtn">Thêm đồng tác
                                                 giả</button>
@@ -449,6 +456,16 @@
             </div>
         </div>
     </section>
+    <script>document.addEventListener('DOMContentLoaded', function() {
+        const checkAllCheckbox = document.getElementById('checkAllRequirements');
+        const requiredCheckboxes = document.querySelectorAll('.requirements-box input[type="checkbox"]:not(#checkAllRequirements)');
+
+        checkAllCheckbox.addEventListener('change', function() {
+            requiredCheckboxes.forEach(checkbox => {
+                checkbox.checked = checkAllCheckbox.checked;
+            });
+        });
+    });</script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkEmailBtn = document.getElementById('checkEmail');
