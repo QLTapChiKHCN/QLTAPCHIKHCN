@@ -99,15 +99,15 @@ CREATE TABLE BaiViet (
     MaSoTC varchar(10) FOREIGN KEY REFERENCES SoTapChi(MaSoTC),
     MaChuyenMuc varchar(10) FOREIGN KEY REFERENCES ChuyenMuc(MaChuyenMuc),
     TieuDe nvarchar(200),
-    TenBaiBao nvarchar(100),
-	TenBaiBaoTiengAnh varchar(100),
+    TenBaiBao nvarchar(300),
+	TenBaiBaoTiengAnh varchar(300),
 	TomTat nvarchar(Max),
 	TomTatTiengAnh varchar(Max),
     NgayXetDuyet date,
     NgayGui date,
     TuKhoa nvarchar(200),
 	TuKhoaTiengAnh nvarchar(200),
-    FileBaiViet varchar(255),
+    FileBaiViet nvarchar(255),
     TrangThai nvarchar(50)
 );
 -- Tạo bảng ChiTietBaiViet
@@ -213,9 +213,9 @@ INSERT INTO QuocGia (MaQG, TenQG) VALUES
 INSERT INTO NguoiDung (MaNguoiDung, MaHocVi, MaHocHam, MaDonVi, MaChuyenNganh, MaQG, TenDangNhap, MatKhau, HoTen, Email, CCCD, SoDienThoai, DiaChi, GioiTinh) VALUES
 ('ND01', 'HV01', 'HH02', 'DV01', 'CN01', 'VN', 'user1', 'a722c63db8ec8625af6cf71cb8c2d939', N'Nguyễn Văn A', 'a@example.com', '123456789012', '0123456789', N'Hà Nội', N'Nam'),
 ('ND02', 'HV02', 'HH01', 'DV02', 'CN02', 'VN', 'user2', 'c1572d05424d0ecb2a65ec6a82aeacbf', N'Trần Thị B', 'b@example.com', '123456789013', '0123456788', N'Hồ Chí Minh', N'Nữ'),
-('ND03', 'HV03', 'HH02', 'DV01', 'CN03', 'VN', 'user3', 'pass3', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Nam'),
-('ND04', 'HV04', 'HH01', 'DV03', 'CN04', 'VN', 'user4', 'pass4', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
-('ND05', 'HV01', 'HH02', 'DV01', 'CN05', 'VN', 'user5', 'pass5', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Cần Thơ', N'Nam');
+('ND03', 'HV03', 'HH02', 'DV01', 'CN03', 'VN', 'user3', '$2y$10$9avnS2fYg7YHsFGcmq/5yOp72dSi3ty8Tfe02ETjog286rugZxWE', N'Lê Văn C', 'c@example.com', '123456789014', '0123456787', N'Đà Nẵng', N'Nam'),
+('ND04', 'HV04', 'HH01', 'DV03', 'CN04', 'VN', 'user4', '$2y$10$9avnS2fYg7YHsFGcmq/5yOp72dSi3ty8Tfe02ETjog286rugZxWE', N'Phạm Thị D', 'd@example.com', '123456789015', '0123456786', N'Hải Phòng', N'Nữ'),
+('ND05', 'HV01', 'HH02', 'DV01', 'CN05', 'VN', 'user5', '$2y$10$9avnS2fYg7YHsFGcmq/5yOp72dSi3ty8Tfe02ETjog286rugZxWE', N'Nguyễn Văn E', 'e@example.com', '123456789016', '0123456785', N'Cần Thơ', N'Nam');
 
 
 INSERT INTO NguoiDung_VaiTro (MaNguoiDung, MaVaiTro) VALUES
@@ -223,9 +223,11 @@ INSERT INTO NguoiDung_VaiTro (MaNguoiDung, MaVaiTro) VALUES
 ('ND02', 'VT02'),  -- Trần Thị B là Tổng biên tập
 ('ND03', 'VT03'),  -- Lê Văn C là Tác giả
 ('ND03', 'VT04'),  -- Lê Văn C là Người phản biện
-('ND05', 'VT04');  -- Nguyễn Văn E là Người phản biện
+('ND05', 'VT04'),  -- Nguyễn Văn E là Người phản biện
+('ND05', 'VT03'),
+('ND04', 'VT03'),
+('ND04', 'VT04');
 
-select * from NguoiDung
 INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 ('LTG01', N'Tác giả chính + Tác giả liên hệ'),
 ('LTG02', N'Hỗ trợ'),
@@ -240,16 +242,18 @@ INSERT INTO LoaiTacGia (MaLTacGia, TenLoai) VALUES
 -- Thêm 5 bản ghi vào bảng BaiViet
 INSERT INTO BaiViet (MaBaiBao, MaNgonNgu, MaSoTC, MaChuyenMuc, TieuDe, TenBaiBao, TenBaiBaoTiengAnh, TomTat, TomTatTiengAnh, NgayXetDuyet, NgayGui, TuKhoa, TuKhoaTiengAnh, FileBaiViet, TrangThai)
 VALUES 
-('B001', 'NN01', null, 'CM01', N'Tiêu đề bài báo 1', N'Tên bài báo 1', 'Title of Article 1', N'Tóm tắt bài báo 1', 'Summary of Article 1', null, '2024-09-29', N'Từ khóa 1', 'Keyword 1', 'file1.pdf', N'Đang duyệt'),
-('B002', 'NN02', null, 'CM01', N'Tiêu đề bài báo 2', N'Tên bài báo 2', 'Title of Article 2', N'Tóm tắt bài báo 2', 'Summary of Article 2', null, '2024-10-01', N'Từ khóa 2', 'Keyword 2', 'file2.pdf', N'Đang duyệt'),
-('B003', 'NN01', null, 'CM01', N'Tiêu đề bài báo 3', N'Tên bài báo 3', 'Title of Article 3', N'Tóm tắt bài báo 3', 'Summary of Article 3', null, '2024-09-25', N'Từ khóa 3', 'Keyword 3', 'file3.pdf', N'Đang duyệt'),
-('B004', 'NN02', null, 'CM01', N'Tiêu đề bài báo 4', N'Tên bài báo 4', 'Title of Article 4', N'Tóm tắt bài báo 4', 'Summary of Article 4', null, '2024-09-20', N'Từ khóa 4', 'Keyword 4', 'file4.pdf', N'Đang duyệt'),
-('B005', 'NN01', null, 'CM01', N'Tiêu đề bài báo 5', N'Tên bài báo 5', 'Title of Article 5', N'Tóm tắt bài báo 5', 'Summary of Article 5', null, '2024-09-15', N'Từ khóa 5', 'Keyword 5', 'file5.pdf', N'Đang duyệt');
+('B001', 'NN02',
+'OPERATION OF FLYING-CAPACITOR MODULAR MULTILEVEL CONVERTER WITH FOUR-WINDING COUPLED INDUCTORS',
+'CM01', N'Tiêu đề bài báo 1', null, 
+'OPERATION OF FLYING-CAPACITOR MODULAR MULTILEVEL CONVERTER WITH FOUR-WINDING COUPLED INDUCTORS', 
+N'Trong bài báo này, cuộn cảm kết nối với bốn cuộn dây cho bộ biến đổi đa bậc cấu hình mô-đun tụ điện bay (FC-MMC) đã được đề xuất để giảm thể tích và trọng lượng của thành phần từ tính. Trong FC-MMC thông thường, cần phải lắp ráp bốn cuộn cảm rời rạc cho một pha. Tuy nhiên, bốn cuộn cảm này có thể được thay thế bằng cách thiết kế một cuộn cảm kết nối với bốn cuộn dây. Bằng cách này, thể tích của lõi từ có thể giảm lần lượt là 47,3% và 8,2% so với các cuộn cảm rời rạc và cuộn cảm kết nối hai cuộn dây. Tính khả thi của phương pháp đề xuất đã được xác minh bằng kết quả mô phỏng cho hệ thống truyền động động cơ 4160-V/1-MW với cuộn cảm kết nối được sử dụng trong cấu hình của FC-MMC.', 
+null, null, '2024-09-29', null, 'Coupled inductor, flying-capacitor modular multilevel converters, medium-voltage motor drive', 
+N'1_2023030029.R1_four-winding_8p_3-10.pdf', N'Đang duyệt')
 
 -- Thêm 5 bản ghi vào bảng ChiTietBaiViet
 INSERT INTO ChiTietBaiViet (MaBaiBao, MaNguoiDung, MaLTacGia)
 VALUES 
-('B001', 'ND01', 'LTG01'),
+('B001', 'ND03', 'LTG01'),
 ('B001', 'ND02', 'LTG02'),
 ('B002', 'ND03', 'LTG03'),
 ('B003', 'ND04', 'LTG04'),
@@ -264,6 +268,8 @@ VALUES
 ('B004', 'ND04', null, null, '2024-10-28', null, 'review4.pdf'),
 ('B005', 'ND05', null, null, '2024-10-29', null, 'review5.pdf');
 
+select * from LichSuChonNguoiPhanBien
+
 -- Thêm 5 bản ghi vào bảng LichSuChonNguoiPhanBien
 INSERT INTO LichSuChonNguoiPhanBien (MaNguoiDung, MaBaiBao, NgayGuiYeuCau, TrangThai)
 VALUES 
@@ -272,7 +278,6 @@ VALUES
 ('ND03', 'B003', '2024-10-03', N'Từ chối'),
 ('ND04', 'B004', '2024-10-04', N'Chờ phản hồi'),
 ('ND05', 'B005', '2024-10-05', N'Chờ phản hồi');
-
 
 -- trigger cập nhật ngày hết hạn
 CREATE TRIGGER trg_SetNgayHetHan
@@ -287,6 +292,7 @@ BEGIN
     WHERE i.NgayNhan IS NOT NULL;
 END;
 GO
+
 -- Trigger cập nhật trạng thái nếu phản biện không trl 
 CREATE TRIGGER trg_UpdateTrangThai
 ON LichSuChonNguoiPhanBien
@@ -300,6 +306,7 @@ BEGIN
       AND DATEDIFF(DAY, NgayGuiYeuCau, GETDATE()) > 3;
 END;
 GO
+
 --trigger từ chối bài viết nếu quá hạn chỉnh sửa
 CREATE OR ALTER TRIGGER trg_TuChoiBaiVietQuaHan
 ON LichSuSoDuyetBaiViet
@@ -335,3 +342,18 @@ BEGIN
         DATEDIFF(DAY, ls.NgayGuiYeuCau, GETDATE()) > 3  -- Quá 3 ngày từ ngày yêu cầu
         AND ls.TrangThaiTBT IS NULL  -- Chưa duyệt
 END;
+
+select * from baiviet
+select * from ChiTietBaiViet
+select * from chitietphanbien
+select * from LichSuChonNguoiPhanBien
+select * from LichSuSoDuyetBaiViet
+select * from PhanHoi
+select * from sotapchi
+select * from VaiTro
+select * from NguoiDung_VaiTro
+select * from NguoiDung
+
+
+delete baiviet
+delete ChiTietBaiViet
