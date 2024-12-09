@@ -5,6 +5,7 @@
                 <p class="card-text">Thông tin phản biện</p>
             </div>
             <ul class="list-group list-group-flush">
+
                 <li class="list-group-item">Ngày nhận bài: {{$ctpb->NgayNhan}}</li>
                 <li class="list-group-item">Ngày đến hạn: {{$ctpb->NgayHetHan}}</li>
                 <li class="list-group-item">Trạng thái: {{$ctpb->KetQuaPhanBien}}</li>

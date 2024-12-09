@@ -1,35 +1,27 @@
-
-  <!-- Banner Header -->
-  <section class="container-fluid">
+<!-- Banner Header -->
+<section class="container-fluid">
     <div class="container">
-      <div class="row">
-        <div class="col-md-4 mt-2">
-          <a href="#">
-            <img
-              src="https://huit.edu.vn/Images/Documents/N00CT/logo-huit-web-chinh-moi-mau-xanh-02.svg?h=80"
-              class="img-fluid"
-              style="width: 350px"
-          /></a>
-        </div>
-        <div class="col-md-5 mt-4 text-center header-color">
-          <h3><b>TẠP CHÍ KHOA HỌC CÔNG NGHỆ HUIT</b></h3>
-          <h5><b>HUIT JOURNAL OF SCIENCE AND TECHNOLOGY</b></h5>
-        </div>
-        <div
-          class="col-md-4 mt-5 header-color"
-          style="position: relative; left: 20px"
-        >
+        <div class="row">
+            <div class="col-md-4 mt-2">
+                <a href="#">
+                    <img src="https://huit.edu.vn/Images/Documents/N00CT/logo-huit-web-chinh-moi-mau-xanh-02.svg?h=80"
+                        class="img-fluid" style="width: 350px" /></a>
+            </div>
+            <div class="col-md-5 mt-4 text-center header-color">
+                <h3><b>TẠP CHÍ KHOA HỌC CÔNG NGHỆ HUIT</b></h3>
+                <h5><b>HUIT JOURNAL OF SCIENCE AND TECHNOLOGY</b></h5>
+            </div>
+            <div class="col-md-4 mt-5 header-color" style="position: relative; left: 20px">
 
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 <!-- Main Navigation -->
 <nav class="navbar navbar-expand-lg main-nav">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -62,7 +54,8 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-fill"></i>
                         @if (Auth::check())
                             {{ Auth::user()->HoTen }}
@@ -72,17 +65,19 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @if (Auth::check())
-                         <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
-                        @php
-                            $laPhanBien = Auth::user()->vaiTros()->where('NguoiDung_VaiTro.MaVaiTro', 'VT04')->exists();
-                        @endphp
-
-                        @if ($laPhanBien)
-                            <li><a class="dropdown-item" href="{{ route('Working') }}">Phản biện bài viết</a></li>
+                            @php
+                                $laPhanBien = Auth::user()
+                                    ->vaiTros()
+                                    ->where('NguoiDung_VaiTro.MaVaiTro', 'VT04')
+                                    ->exists();
+                            @endphp
+                            @if ($laPhanBien)
+                                <li><a class="dropdown-item" href="{{ route('Working') }}">Phản biện bài viết</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a></li>
+                        @else
+                            <li><a class="dropdown-item" href="{{ route('Login') }}">Đăng nhập</a></li>
                         @endif
-                    @else
-                        <li><a class="dropdown-item" href="{{ route('Login') }}">Đăng nhập</a></li>
-                    @endif
                     </ul>
                 </li>
             </ul>

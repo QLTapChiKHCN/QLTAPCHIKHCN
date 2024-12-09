@@ -21,106 +21,104 @@ class PhanBienController extends Controller
         return view('Home.Phanbien');
     }
     public function To_Do_List(Request $request)
-{
-    $stt = $request->input('status');
-    $cv = Auth::id();
-    $nd = NguoiDung::find($cv);
-    $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
-    $list_CV = [];
+    {
+        $stt = $request->input('status');
+        $cv = Auth::id();
+        $nd = NguoiDung::find($cv);
+        $ctpb = ChiTietPhanBien::where('MaNguoiDung', $cv)->get();
+        $list_CV = [];
 
-    if ($ctpb->isNotEmpty()) {
-        if (!$stt) {
-            foreach ($ctpb as $item) {
-                $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                if ($baiViet) {
-                    $list_CV[] = [
-                        'MaBaiBao' => $item->MaBaiBao,
-                        'TenBaiBao' => $baiViet->TenBaiBao,
-                        'TrangThai' => $item->KetQuaPhanBien,
-                        'NgayNhan' => $item->NgayNhan,
-                        'NgayHetHan' => $item->NgayHetHan,
-                        'FileBaiViet' => $baiViet->FileBaiViet
-                    ];
+        if ($ctpb->isNotEmpty()) {
+            if (!$stt) {
+                foreach ($ctpb as $item) {
+                    $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai','Tiến hành phản biện')->first();
+                    if ($baiViet) {
+                        $list_CV[] = [
+                            'MaBaiBao' => $item->MaBaiBao,
+                            'TenBaiBao' => $baiViet->TenBaiBao,
+                            'TrangThai' => $item->KetQuaPhanBien,
+                            'NgayNhan' => $item->NgayNhan,
+                            'NgayHetHan' => $item->NgayHetHan,
+                            'FileBaiViet' => $baiViet->FileBaiViet,
+                        ];
+                    }
+                }
+            } else {
+                switch ($stt) {
+                    case 'Chờ phản hồi':
+                        foreach ($ctpb as $item) {
+                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai','Tiến hành phản biện')->first();
+                            if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value) {
+                                $list_CV[] = [
+                                    'MaBaiBao' => $item->MaBaiBao,
+                                    'TenBaiBao' => $baiViet->TenBaiBao,
+                                    'TrangThai' => $item->KetQuaPhanBien,
+                                    'NgayNhan' => $item->NgayNhan,
+                                    'NgayHetHan' => $item->NgayHetHan,
+                                    'FileBaiViet' => $baiViet->FileBaiViet,
+                                ];
+                            }
+                        }
+                        break;
+                    case 'Chấp nhận':
+                        foreach ($ctpb as $item) {
+                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai','Tiến hành phản biện')->first();
+                            if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::DA_DUYET->value) {
+                                $list_CV[] = [
+                                    'MaBaiBao' => $item->MaBaiBao,
+                                    'TenBaiBao' => $baiViet->TenBaiBao,
+                                    'TrangThai' => $item->KetQuaPhanBien,
+                                    'NgayNhan' => $item->NgayNhan,
+                                    'NgayHetHan' => $item->NgayHetHan,
+                                    'FileBaiViet' => $baiViet->FileBaiViet,
+                                ];
+                            }
+                        }
+                        break;
+                    case 'Từ chối':
+                        foreach ($ctpb as $item) {
+                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai','Tiến hành phản biện')->first();
+                            if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::TU_CHOI->value) {
+                                $list_CV[] = [
+                                    'MaBaiBao' => $item->MaBaiBao,
+                                    'TenBaiBao' => $baiViet->TenBaiBao,
+                                    'TrangThai' => $item->KetQuaPhanBien,
+                                    'NgayNhan' => $item->NgayNhan,
+                                    'NgayHetHan' => $item->NgayHetHan,
+                                    'FileBaiViet' => $baiViet->FileBaiViet,
+                                ];
+                            }
+                        }
+                        break;
+                    case 'Chỉnh sửa':
+                        foreach ($ctpb as $item) {
+                            $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->where('TrangThai','Tiến hành phản biện')->first();
+                            if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::YEU_CAU_CHINH_SUA->value) {
+                                $list_CV[] = [
+                                    'MaBaiBao' => $item->MaBaiBao,
+                                    'TenBaiBao' => $baiViet->TenBaiBao,
+                                    'TrangThai' => $item->KetQuaPhanBien,
+                                    'NgayNhan' => $item->NgayNhan,
+                                    'NgayHetHan' => $item->NgayHetHan,
+                                    'FileBaiViet' => $baiViet->FileBaiViet,
+                                ];
+                            }
+                        }
+                        break;
                 }
             }
-        } else {
-            // Nếu có trạng thái, lọc theo từng trường hợp
-            switch ($stt) {
-                case 'Chờ phản hồi':
-                    foreach ($ctpb as $item) {
-                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::CHO_PHAN_HOI->value) {
-                            $list_CV[] = [
-                                'MaBaiBao' => $item->MaBaiBao,
-                                'TenBaiBao' => $baiViet->TenBaiBao,
-                                'TrangThai' => $item->KetQuaPhanBien,
-                                'NgayNhan' => $item->NgayNhan,
-                                'NgayHetHan' => $item->NgayHetHan,
-                                'FileBaiViet' => $baiViet->FileBaiViet
-                            ];
-                        }
-                    }
-                    break;
-                case 'Chấp nhận':
-                    foreach ($ctpb as $item) {
-                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::DA_DUYET->value) {
-                            $list_CV[] = [
-                                'MaBaiBao' => $item->MaBaiBao,
-                                'TenBaiBao' => $baiViet->TenBaiBao,
-                                'TrangThai' => $item->KetQuaPhanBien,
-                                'NgayNhan' => $item->NgayNhan,
-                                'NgayHetHan' => $item->NgayHetHan,
-                                'FileBaiViet' => $baiViet->FileBaiViet
-                            ];
-                        }
-                    }
-                    break;
-                case 'Từ chối':
-                    foreach ($ctpb as $item) {
-                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::TU_CHOI->value) {
-                            $list_CV[] = [
-                                'MaBaiBao' => $item->MaBaiBao,
-                                'TenBaiBao' => $baiViet->TenBaiBao,
-                                'TrangThai' => $item->KetQuaPhanBien,
-                                'NgayNhan' => $item->NgayNhan,
-                                'NgayHetHan' => $item->NgayHetHan,
-                                'FileBaiViet' => $baiViet->FileBaiViet
-                            ];
-                        }
-                    }
-                    break;
-                case 'Chỉnh sửa':
-                    foreach ($ctpb as $item) {
-                        $baiViet = BaiViet::where('MaBaiBao', $item->MaBaiBao)->first();
-                        if ($baiViet && $item->KetQuaPhanBien == TrangThaiChiTietPhanBien::YEU_CAU_CHINH_SUA->value) {
-                            $list_CV[] = [
-                                'MaBaiBao' => $item->MaBaiBao,
-                                'TenBaiBao' => $baiViet->TenBaiBao,
-                                'TrangThai' => $item->KetQuaPhanBien,
-                                'NgayNhan' => $item->NgayNhan,
-                                'NgayHetHan' => $item->NgayHetHan,
-                                'FileBaiViet' => $baiViet->FileBaiViet
-                            ];
-                        }
-                    }
-                    break;
-            }
         }
+        return view('PB.ToDoList', compact('list_CV'));
     }
-    return view('PB.ToDoList', compact('list_CV'));
-}
-
 
     public function Art_Details(BaiViet $baiviet)
     {
         $cv = Auth::id();
-        $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet->MaBaiBao)->where('MaNguoiDung',$cv)->first();
+        $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet->MaBaiBao)
+            ->where('MaNguoiDung', $cv)
+            ->first();
         return view('PB.Articel-Details', compact('baiviet', 'ctpb'));
     }
-
-
 
     public function show_Pdf($fileName)
     {
@@ -157,7 +155,7 @@ class PhanBienController extends Controller
                 $file->move($path, $new_file);
             }
 
-            $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet);
+            $ctpb = ChiTietPhanBien::where('MaBaiBao', $baiviet)->where('MaNguoiDung', $cv)->where('KetQuaPhanBien', 'Chờ phản hồi');
             if ($ctpb) {
                 $ctpb->update([
                     'KetQuaPhanBien' => $request->input('result'),
@@ -165,14 +163,12 @@ class PhanBienController extends Controller
                     'NgayTraKetQua' => now(),
                     'FilePhanBien' => $new_file,
                 ]);
-
             }
             DB::commit();
-            return redirect()->back()->with('success', 'Gửi file phản biện thành công');
+            return redirect()->route('Working')->with('success', 'Gửi file phản biện thành công');
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Lỗi khi gửi kết quả');
         }
     }
-
 }
